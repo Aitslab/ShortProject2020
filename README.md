@@ -24,7 +24,7 @@ This script imports the packages used in this short project.
 * datadownload.py<br>
 Involves the codes written for downloading the databases that were available for download or the htmls of databases that were not available for download.<br>
 Some codes should be run a long with the correct packages from packages.py.<br>
-One file was downloaded manually and therefore it is not included in this set of codes. It is from uniprot/subcellular-lysosome section(release 2020_02).
+Some data was downloaded manually and therefore it is not included in this set of codes. It is from https://www.uniprot.org/locations/ -> lysosome and autophagosome section, then click download and choose tab-separted (release 2020_02).
 
 * webscraping.py<br>
 Runs codes written for parsing databases that were not available for download. HTML scraping was the method used in this case. Some scraping codes were followed by another code to fix the data structure in the database.

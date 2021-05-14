@@ -9,13 +9,17 @@ Some databases were available for download(see datadownload.py), while others we
 
 * python v3.7.4
 * wget
+* matplotlib v3.1.1
+* pandas
+* beautifulsoup4
+* owlready2
+* goatools
 
 All the scripts were run using python. 
 
 ## Packages and libraries
 * packages.py<br>
-This script involves the packages used in this short project.
-* Matplotlib library(v3.1.1)
+This script imports the packages used in this short project.
 
 ## Main Scripts
 * datadownload.py<br>
@@ -56,9 +60,13 @@ All codes were written in Jupyter notebook (v6.0.1). The name or the path of the
 
 ### Step-by-step
 - create new environmente with conda
-- install jupyterlab or notebook, e.g. 'conda install -c conda-forge jupyterlab
 - install wget: pip install wget
 - install matplotlib: conda install matplotlib==3.1.1
+- install pandas: conda install pandas
+- install beautifulsoup4: conda install beautifulsoup4
+- install owlready2: conda install -c conda-forge owlready2
+- install goatools: pip install goatools
+- install jupyterlab or notebook, e.g. 'conda install -c conda-forge jupyterlab (if you want to look at the notebook)
 - launch jupyterlab from the anaconda/miniconda prompt: jupyter lab
 
 

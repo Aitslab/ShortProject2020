@@ -8,8 +8,9 @@ Some databases were available for download(see datadownload.py), while others we
 ## Dependencies
 
 * python v3.7.4
+* wget
 
-All the scripts were run using python. No other dependency is required.
+All the scripts were run using python. 
 
 ## Packages and libraries
 * packages.py<br>
@@ -55,7 +56,9 @@ All codes were written in Jupyter notebook (v6.0.1). The name or the path of the
 
 ### Step-by-step
 - create new environmente with conda
-- install jupyterlab or notebook, e.g. 'conda install -c conda-forge jupyterlab'
+- install jupyterlab or notebook, e.g. 'conda install -c conda-forge jupyterlab
+- install wget: pip install wget
+- install matplotlib: conda install matplotlib==3.1.1
 - launch jupyterlab from the anaconda/miniconda prompt: jupyter lab
 
 

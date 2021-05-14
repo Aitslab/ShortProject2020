@@ -84,3 +84,6 @@ Alternative:
 http://www.tanpaku.org/autophagy/
 
 dx.doi.org/10.1093/nar/gkq995
+
+#### Bcl2 Database
+https://academic.oup.com/database/article/doi/10.1093/database/bau013/2633796

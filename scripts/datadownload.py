@@ -15,6 +15,7 @@ AutophagyDB= tarfile.open('autophagyDB.tar.gz', "r:gz")
 #extract the content
 AutophagyDB.extractall()
 AutophagyDB.close()
+#afterwards move autophagyDB.tar.gz and the extracted AutophagyDB folder to rawdata folder
 
 
 #Downloading go.owl. This requires owlready2 library(release vesrion 2020-04)
@@ -37,6 +38,7 @@ wget.download(url, 'protein-basic-csv.zip')
 zip = zipfile.ZipFile('protein-basic-csv.zip')
 zip.printdir()
 zip.extractall()
+zip.close()
 #when parsing the file specify the endcoding = 'latin1' and low_memory= False
 
 

@@ -74,3 +74,11 @@ All codes were written in Jupyter notebook (v6.0.1). The name or the path of the
 * Versions and release dates of databases were recorded if they were available, otherwise the date of data collection was written.
 * All unreviewed, obsolete, and unmapped-data files that were obtained upon mapping our data to UniProt are found in "Incomplete_Mappings" folders. The final and reviewed-data files are saved to "Final_Databases" folder.
 * 3 files were generated for the sample files in the screen analysis and they correspond to the 3 thresholds used in the study to assess false positives and false negatives.
+
+
+### References
+#### Autophagy Database
+
+http://www.tanpaku.org/autophagy/
+
+dx.doi.org/10.1093/nar/gkq995

@@ -56,6 +56,7 @@ All codes were written in Jupyter notebook (v6.0.1). The name or the path of the
 ### Step-by-step
 - create new environmente with conda
 - install jupyterlab or notebook, e.g. 'conda install -c conda-forge jupyterlab'
+- launch jupyterlab from the anaconda/miniconda prompt: jupyter lab
 
 
 ## Other Information

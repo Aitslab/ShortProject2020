@@ -82,6 +82,10 @@ wget.download(url, 'BCL2DBOtherBH3')
 url = 'https://www.proteinatlas.org/search/Lysosome?format=xml' #parsed by Mariam but not used later
 wget.download(url, 'proteinAtlasLysosome.xml')
 
+#Download The The Human Protein Atlas database (tsv)/lysosome
+url = 'https://www.proteinatlas.org/search/Lysosome?format=tsv'
+wget.download(url, 'proteinAtlasLysosome.tsv')
+
 #Download The The Human Protein Atlas database (tsv)/lysosomes
 url = 'https://www.proteinatlas.org/search/lysosomes?format=tsv'
 wget.download(url, 'proteinAtlasLysosomeS.tsv')
@@ -96,9 +100,6 @@ url = 'https://www.proteinatlas.org/search/vesicle?format=tsv'
 wget.download(url, 'proteinAtlasLysosomeVesicle.tsv')
 
 ##NEW HPA FILES NOT DOWNLOADED BY MARIAM
-url = 'https://www.proteinatlas.org/search/Lysosome?format=tsv'
-wget.download(url, 'proteinAtlasLysosome.tsv')
-
 url = 'https://www.proteinatlas.org/search/subcell_location%3ALysosomes?format=tsv'
 wget.download(url, 'proteinAtlasSubcellLysosomes.tsv')
 

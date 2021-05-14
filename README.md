@@ -17,11 +17,10 @@ Some databases were available for download(see datadownload.py), while others we
 
 All the scripts were run using python. 
 
-## Packages and libraries
+## Main Scripts
 * packages.py<br>
 This script imports the packages used in this short project.
 
-## Main Scripts
 * datadownload.py<br>
 Involves the codes written for downloading the databases that were available for download or the htmls of databases that were not available for download.<br>
 Some codes should be run a long with the correct packages from packages.py.<br>
@@ -29,7 +28,6 @@ One file was downloaded manually and therefore it is not included in this set of
 
 * webscraping.py<br>
 Runs codes written for parsing databases that were not available for download. HTML scraping was the method used in this case. Some scraping codes were followed by another code to fix the data structure in the database.
-
 
 * parse.py<br>
 Involves codes written for parsing the databases that were available for download in order to extract necessary fields.
@@ -66,6 +64,9 @@ All codes were written in Jupyter notebook (v6.0.1). The name or the path of the
 - install beautifulsoup4: conda install beautifulsoup4
 - install owlready2: conda install -c conda-forge owlready2
 - install goatools: pip install goatools
+- run packages.py to import packages and then datadownload.py to get the raw data, place data in folder "rawdata"
+
+Alternative:
 - install jupyterlab or notebook, e.g. 'conda install -c conda-forge jupyterlab (if you want to look at the notebook)
 - launch jupyterlab from the anaconda/miniconda prompt: jupyter lab
 

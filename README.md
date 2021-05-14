@@ -87,3 +87,6 @@ dx.doi.org/10.1093/nar/gkq995
 
 #### Bcl2 Database
 https://academic.oup.com/database/article/doi/10.1093/database/bau013/2633796
+
+#### HAMdb
+https://jcheminf.biomedcentral.com/articles/10.1186/s13321-018-0289-4

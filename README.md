@@ -34,7 +34,7 @@ https://www.uniprot.org/uniprot/?query=locations:(location:%22Autophagosome%20[S
 
 The Human Lysosome Gene Database and The Mouse Lysosome Gene Database
 
-go to http://lysosome.unipg.it/index.php and http://lysosome.unipg.it/mouse.php, click query and then save html page with results
+go to http://lysosome.unipg.it/index.php and http://lysosome.unipg.it/mouse.php, click query and then save html page with results. Alternatively (not in this project), tick download results in delimited format and then click query to get a csv file.
 
 
 * webscraping.py<br>

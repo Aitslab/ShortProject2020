@@ -15,6 +15,7 @@ Some databases were available for download(see datadownload.py), while others we
 * owlready2
 * goatools
 * lxml
+* glob
 
 All the scripts were run using python. 
 

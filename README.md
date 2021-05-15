@@ -80,7 +80,7 @@ https://www.uniprot.org/uniprot/?query=locations:(location:%22Autophagosome%20[S
 
 The CASBAH
 
-go to http://bioinf.gen.tcd.ie/cgi-bin/casbah/casbah.pl, in the bottom change the data rows number to fit the number of entries (e.g. 777), click enter, then save the html file as The_CASBAH.html
+go to http://bioinf.gen.tcd.ie/cgi-bin/casbah/casbah.pl, in the bottom change the table rows AND data rows number to fit the number of entries (e.g. 777), click enter (check that only one table is shown), then save the html file as The_CASBAH.html
 
 The Human Lysosome Gene Database and The Mouse Lysosome Gene Database
 

@@ -24,8 +24,18 @@ This script imports the packages used in this short project.
 * datadownload.py<br>
 Involves the codes written for downloading the databases that were available for download or the htmls of databases that were not available for download.<br>
 Some codes should be run a long with the correct packages from packages.py.<br>
-Some data was downloaded manually as tsv file from Uniprot search terms lysosome and autophagosome: https://www.uniprot.org/uniprot/?query=lysosome&sort=score and https://www.uniprot.org/uniprot/?query=autophagosome&sort=score. Alternatively, the more limited subcellular locations can be used (not in this project):
-https://www.uniprot.org/uniprot/?query=locations:(location:%22Autophagosome%20[SL-0023]%22) and https://www.uniprot.org/uniprot/?query=locations:(location:%22Lysosome%20[SL-0158]%22); click download and choose tab-separted (release 2020_02).
+
+Some data had to be downloaded manually:
+
+Uniprot
+
+go to https://www.uniprot.org/uniprot/?query=lysosome&sort=score and https://www.uniprot.org/uniprot/?query=autophagosome&sort=score, click on download and choose tab-separated (release 2020_02). Alternative data source (not in this project): search for autophagosome or lysosome in subcellular locations
+https://www.uniprot.org/uniprot/?query=locations:(location:%22Autophagosome%20[SL-0023]%22) and https://www.uniprot.org/uniprot/?query=locations:(location:%22Lysosome%20[SL-0158]%22), click download and choose tab-separted 
+
+The Human Lysosome Gene Database and The Mouse Lysosome Gene Database
+
+go to http://lysosome.unipg.it/index.php and http://lysosome.unipg.it/mouse.php, click query and then save html page with results
+
 
 * webscraping.py<br>
 Runs codes written for parsing databases that were not available for download. HTML scraping was the method used in this case. Some scraping codes were followed by another code to fix the data structure in the database.

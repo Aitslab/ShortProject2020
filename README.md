@@ -14,6 +14,7 @@ Some databases were available for download(see datadownload.py), while others we
 * beautifulsoup4
 * owlready2
 * goatools
+* lxml
 
 All the scripts were run using python. 
 
@@ -25,17 +26,7 @@ This script imports the packages used in this short project.
 Involves the codes written for downloading the databases that were available for download or the htmls of databases that were not available for download.<br>
 Some codes should be run a long with the correct packages from packages.py.<br>
 
-Some data had to be downloaded manually:
-
-Uniprot
-
-go to https://www.uniprot.org/uniprot/?query=lysosome&sort=score and https://www.uniprot.org/uniprot/?query=autophagosome&sort=score, click on download and choose tab-separated (release 2020_02). Alternative data source (not in this project): search for autophagosome or lysosome in subcellular locations
-https://www.uniprot.org/uniprot/?query=locations:(location:%22Autophagosome%20[SL-0023]%22) and https://www.uniprot.org/uniprot/?query=locations:(location:%22Lysosome%20[SL-0158]%22), click download and choose tab-separted 
-
-The Human Lysosome Gene Database and The Mouse Lysosome Gene Database
-
-go to http://lysosome.unipg.it/index.php and http://lysosome.unipg.it/mouse.php, click query and then save html page with results. Alternatively (not in this project), tick download results in delimited format and then click query to get a csv file.
-
+Data from Uniprot, The CASBAH, The Human Lysosome Gene Database and The Mouse Lysosome Gene Database had to be downloaded manually (see below in step-by-step):
 
 * webscraping.py<br>
 Runs codes written for parsing databases that were not available for download. HTML scraping was the method used in this case. Some scraping codes were followed by another code to fix the data structure in the database.
@@ -68,6 +59,7 @@ Runs codes written for for matching the screen hits with the autophagy, cell dea
 All codes were written in Jupyter notebook (v6.0.1). The name or the path of the file should be supplied and the codes can be simply run with ctrl+enter OR alt+enter.
 
 ### Step-by-step
+#### Step 1: preparing the environment
 - create new environmente with conda
 - install wget: pip install wget
 - install matplotlib: conda install matplotlib==3.1.1
@@ -75,7 +67,28 @@ All codes were written in Jupyter notebook (v6.0.1). The name or the path of the
 - install beautifulsoup4: conda install beautifulsoup4
 - install owlready2: conda install -c conda-forge owlready2
 - install goatools: pip install goatools
+- install lxml: pip install lxml
+
+#### Step 2: download data
 - run packages.py to import packages and then datadownload.py to get the raw data, place data in folder "rawdata"
+- download Uniprot data and data from Human Autophagy Gene Database and Mouse Autophagy Gene Database manually
+
+Uniprot
+
+go to https://www.uniprot.org/uniprot/?query=lysosome&sort=score and https://www.uniprot.org/uniprot/?query=autophagosome&sort=score, click on download and choose tab-separated (release 2020_02). Alternative data source (not in this project): search for autophagosome or lysosome in subcellular locations
+https://www.uniprot.org/uniprot/?query=locations:(location:%22Autophagosome%20[SL-0023]%22) and https://www.uniprot.org/uniprot/?query=locations:(location:%22Lysosome%20[SL-0158]%22), click download and choose tab-separted 
+
+The CASBAH
+
+go to http://bioinf.gen.tcd.ie/cgi-bin/casbah/casbah.pl, in the bottom change the data rows number to fit the number of entries (e.g. 777), click enter, then save the html file as The_CASBAH.html
+
+The Human Lysosome Gene Database and The Mouse Lysosome Gene Database
+
+go to http://lysosome.unipg.it/index.php and http://lysosome.unipg.it/mouse.php, click query and then save html page with results. Alternatively (not in this project), tick download results in delimited format and then click query to get a csv file.
+
+#### Step 3: parse html files
+- run webscraping.py to parse data from BCL2 database files
+
 
 Alternative:
 - install jupyterlab or notebook, e.g. 'conda install -c conda-forge jupyterlab (if you want to look at the notebook)

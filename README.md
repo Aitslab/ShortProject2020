@@ -88,7 +88,7 @@ The Human Lysosome Gene Database and The Mouse Lysosome Gene Database
 go to http://lysosome.unipg.it/index.php and http://lysosome.unipg.it/mouse.php, click query and then save html page with results. Alternatively (not in this project), tick download results in delimited format and then click query to get a csv file.
 
 #### Step 3: parse html files
-- run webscraping.py to parse data from BCL2 database files
+- run webscraping.py to parse data from BCL2 database files, The CASBAH and The Human Autophagy Database
 
 
 Alternative:

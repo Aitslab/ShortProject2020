@@ -1028,8 +1028,16 @@ with open('tobecleaned56','r') as tobecleaned, open('cleanTable56', 'w') as outp
             tuples = list(zip(*[iter(myelement)]*3))
     for tup in tuples[1:]:
         print(';'.join(tup), file = output)
+        
+#combine all files in the list (added by Sonja)
+import glob
+filenames = glob.glob("cleanTable*")
+print(filenames)
 
-#cat all files and save to TBU_HumanAutophagy_DB
+with open('TBU_HumanAutophagy_DB', 'w', encoding = 'utf-8') as outfile:
+    for f in filenames:
+        with open(f) as infile:
+            outfile.write(infile.read())
 
 #Parsing Human Autophagy database
 entrez_uniprot = {} # will hold the entrezID from the mapped entries.

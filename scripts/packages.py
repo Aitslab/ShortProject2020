@@ -25,6 +25,7 @@ import pandas as pd #also used for reading htmls
 #for webscraping
 import bs4
 from bs4 import BeautifulSoup
+import glob
 
 #for reading .owl format databases
 from owlready2 import *

@@ -437,7 +437,30 @@ with open ('CASBAH_table16'+ ".csv", 'w') as out:
     #print(tuples)
     for tup in tuples:
         tup = tup[:-1]
-        print(','.join(tup), file = out)    #cat all 
+        print(','.join(tup), file = out)   
+        
+#combine all files in the list
+filenames = ['CASBAH_table.csv', 
+             'CASBAH_table2.csv', 
+             'CASBAH_table3.csv', 
+             'CASBAH_table4.csv', 
+             'CASBAH_table5.csv', 
+             'CASBAH_table6.csv', 
+             'CASBAH_table7.csv', 
+             'CASBAH_table8.csv', 
+             'CASBAH_table9.csv', 
+             'CASBAH_table10.csv', 
+             'CASBAH_table11.csv',
+             'CASBAH_table12.csv', 
+             'CASBAH_table13.csv', 
+             'CASBAH_table14.csv', 
+             'CASBAH_table15.csv', 
+             'CASBAH_table16.csv']
+    
+with open('CASBAH_Fulltable.csv', 'w', encoding = 'utf-8') as outfile:
+    for f in filenames:
+        with open(f) as infile:
+            outfile.write(infile.read())
         
 #Parsing CASBAH:
 

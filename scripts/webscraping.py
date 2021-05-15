@@ -437,9 +437,9 @@ with open ('CASBAH_table16'+ ".csv", 'w') as out:
     #print(tuples)
     for tup in tuples:
         tup = tup[:-1]
-        print(','.join(tup), file = out)   
+        print(','.join(tup), file = out) 
         
-#combine all files in the list
+#combine all files in the list (added by Sonja)
 filenames = ['CASBAH_table.csv', 
              'CASBAH_table2.csv', 
              'CASBAH_table3.csv', 
@@ -461,7 +461,7 @@ with open('CASBAH_Fulltable.csv', 'w', encoding = 'utf-8') as outfile:
     for f in filenames:
         with open(f) as infile:
             outfile.write(infile.read())
-        
+
 #Parsing CASBAH:
 
 #Print each organism's name at the end of its line. 
@@ -497,6 +497,11 @@ with open('CASBAH_Fulltable.csv', 'r') as full, open('TBU_CASBAH', 'w') as out:
                 uniprot_o = line[1].split(')')[0]
                 synonym_o = line[2].replace(';', ',')
                 print(name_o,uniprot_o,synonym_o,'OTHER', sep = ';',file = out)
+                
+# remove duplicates (added by Sonja)
+df = pd.read_csv('TBU_CASBAH', sep = ';')
+df.drop_duplicates(inplace=True)
+df.to_csv('TBU_CASBAH_nodupl', sep = ';', index=False)
 #-----------------------------
 
 #Dealing with Human Autophagy Database (HADB)

@@ -243,9 +243,8 @@ with open ('CASBAH_table2'+ ".csv", 'w') as out:
         tup = tup[:-1]
         print(','. join(tup), file = out)
         
- 
- #Start with table3
- list_rows= []
+#Start with table3
+list_rows= []
 
 #Create a csv
 with open ('CASBAH_table3'+ ".csv", 'w') as out:
@@ -264,8 +263,8 @@ with open ('CASBAH_table3'+ ".csv", 'w') as out:
         print(','.join(tup), file = out)
         
         
-  #Continue with other tables
-  list_rows= []
+#Continue with other tables
+list_rows= []
 
 with open ('CASBAH_table4'+ ".csv", 'w') as out:
     for cell in table[4].find_all('td'):

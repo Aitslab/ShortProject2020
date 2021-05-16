@@ -1095,6 +1095,602 @@ with open('TBU_HumanAutophagy_DB', 'r') as tbu, open('mapped_uniprot_HADB.tab','
             myDict[entGeneID]['symbol'] = symbol
     for uniprot,entrezID in entrez_uniprot.items():
         if entrezID in myDict:
+            print(entrezID, uniprot,myDict[entrezID]['name'], myDict[entrezID]['symbol'], sep = ';', file = out)#Dealing with Human Autophagy Database (HADB)
+
+mylist = [] # that is going to be a list of lists
+myelement = []
+
+#No need to write this with open statment each time I run the code here. just the first time. But write it in Atom
+with open('HumanAutophagydatabase.html', 'r') as html_file:
+    soup = BeautifulSoup(html_file, 'lxml')
+    #check the index of all tables
+    table = soup.find_all('table')
+#len(table)
+#index table[6]
+
+#the file is named to be cleaned because I will remove the escape characters from it.
+with open('tobecleaned', 'w') as tobecleaned:
+    for row in table[6].find_all('tr'):
+        print(row.text, file = tobecleaned)  
+
+#row.text contains a lot of spaces and tabs. The file is a mess.
+with open('tobecleaned','r') as tobecleaned, open('cleanTable06', 'w') as output:
+    for line in tobecleaned:
+        line=line.strip()
+        line=line.replace(';',',') #added by Sonja because one field contains a ; creating trouble when using ; as separator later
+        #I split at the new lines and that gave empty lists instead of the new lines.
+        line_list = line.split('\n')
+        mylist.append(line_list)
+        #I need to remove the empty lists from the list.
+        mylist = [x for x in mylist if x != ['']]
+    for lists in mylist:
+        for element in lists:
+            #append all the contents of the sub-lists to another list (this will make it easier to parse)
+            myelement.append(element)
+            ','. join(myelement)
+            tuples = list(zip(*[iter(myelement)]*3))
+    for tup in tuples:
+        #The delimiter now is a ';'. That's better than',' because some words within same field are separated by ','.
+        print(';'.join(tup), file = output) 
+        
+ #REMOVE HEADERS
+with open('HumanAutophagydatabase.html', 'r') as html_file:
+    soup = BeautifulSoup(html_file, 'lxml')
+    table = soup.find_all('table')
+
+with open('tobecleaned08', 'w') as tobecleaned:
+    for row in table[8].find_all('tr'):
+        print(row.text, file = tobecleaned)
+
+mylist = []
+myelement = []
+with open('tobecleaned08','r') as tobecleaned, open('cleanTable08', 'w') as output:
+    for line in tobecleaned:
+        line=line.strip()
+        line=line.replace(';',',') #added by Sonja because one field contains a ; creating trouble when using ; as separator later
+        line_list = line.split('\n')
+        mylist.append(line_list)
+        mylist = [x for x in mylist if x != ['']]
+    for lists in mylist:
+        for element in lists:
+            myelement.append(element)
+            ','. join(myelement)
+            tuples = list(zip(*[iter(myelement)]*3))
+    #I don't want to include the header in the rest of the tuples because it's already present from the first table. (i will concate all)
+    for tup in tuples[1:]:
+        print(';'.join(tup), file = output)
+  
+#REMOVE HEADERS
+with open('HumanAutophagydatabase.html', 'r') as html_file:
+    soup = BeautifulSoup(html_file, 'lxml')
+    table = soup.find_all('table')
+
+
+with open('tobecleaned08', 'w') as tobecleaned:
+    for row in table[8].find_all('tr'):
+        print(row.text, file = tobecleaned)
+
+mylist = []
+myelement = []
+with open('tobecleaned08','r') as tobecleaned, open('cleanTable08', 'w') as output:
+    for line in tobecleaned:
+        line=line.strip()
+        line=line.replace(';',',') #added by Sonja because one field contains a ; creating trouble when using ; as separator later
+        line_list = line.split('\n')
+        mylist.append(line_list)
+        mylist = [x for x in mylist if x != ['']]
+    for lists in mylist:
+        for element in lists:
+            myelement.append(element)
+            ','. join(myelement)
+            tuples = list(zip(*[iter(myelement)]*3))
+    #I don't want to include the header in the rest of the tuples because it's already present from the first table. (i will concate all)
+    for tup in tuples[1:]:
+        print(';'.join(tup), file = output)
+
+#FROM TABLE 10 TILL TABLE 56, CHANGE THE INDEX.
+with open('tobecleaned10', 'w') as tobecleaned:
+    for row in table[10].find_all('tr'):
+        print(row.text, file = tobecleaned)
+
+mylist = []
+myelement = []
+with open('tobecleaned10','r') as tobecleaned, open('cleanTable10', 'w') as output:
+    for line in tobecleaned:
+        line=line.strip()
+        line=line.replace(';',',') #added by Sonja because one field contains a ; creating trouble when using ; as separator later
+        line_list = line.split('\n')
+        mylist.append(line_list)
+        mylist = [x for x in mylist if x != ['']]
+    for lists in mylist:
+        for element in lists:
+            myelement.append(element)
+            ','. join(myelement)
+            tuples = list(zip(*[iter(myelement)]*3))
+    for tup in tuples[1:]:
+        print(';'.join(tup), file = output)
+        
+
+with open('tobecleaned12', 'w') as tobecleaned:
+    for row in table[12].find_all('tr'):
+        print(row.text, file = tobecleaned)
+
+mylist = []
+myelement = []
+with open('tobecleaned12','r') as tobecleaned, open('cleanTable12', 'w') as output:
+    for line in tobecleaned:
+        line=line.strip()
+        line=line.replace(';',',') #added by Sonja because one field contains a ; creating trouble when using ; as separator later
+        line_list = line.split('\n')
+        mylist.append(line_list)
+        mylist = [x for x in mylist if x != ['']]
+    for lists in mylist:
+        for element in lists:
+            myelement.append(element)
+            ','. join(myelement)
+            tuples = list(zip(*[iter(myelement)]*3))
+    for tup in tuples[1:]:
+        print(';'.join(tup), file = output)
+        
+        
+        
+with open('tobecleaned14', 'w') as tobecleaned:
+    for row in table[14].find_all('tr'):
+        print(row.text, file = tobecleaned)
+
+mylist = []
+myelement = []
+with open('tobecleaned14','r') as tobecleaned, open('cleanTable14', 'w') as output:
+    for line in tobecleaned:
+        line=line.strip()
+        line=line.replace(';',',') #added by Sonja because one field contains a ; creating trouble when using ; as separator later
+        line_list = line.split('\n')
+        mylist.append(line_list)
+        mylist = [x for x in mylist if x != ['']]
+    for lists in mylist:
+        for element in lists:
+            myelement.append(element)
+            ','. join(myelement)
+            tuples = list(zip(*[iter(myelement)]*3))
+    for tup in tuples[1:]:
+        print(';'.join(tup), file = output)
+        
+
+with open('tobecleaned16', 'w') as tobecleaned:
+    for row in table[16].find_all('tr'):
+        print(row.text, file = tobecleaned)
+
+mylist = []
+myelement = []
+with open('tobecleaned16','r') as tobecleaned, open('cleanTable16', 'w') as output:
+    for line in tobecleaned:
+        line=line.strip()
+        line=line.replace(';',',') #added by Sonja because one field contains a ; creating trouble when using ; as separator later
+        line_list = line.split('\n')
+        mylist.append(line_list)
+        mylist = [x for x in mylist if x != ['']]
+    for lists in mylist:
+        for element in lists:
+            myelement.append(element)
+            ','. join(myelement)
+            tuples = list(zip(*[iter(myelement)]*3))
+    for tup in tuples[1:]:
+        print(';'.join(tup), file = output)
+        
+
+with open('tobecleaned18', 'w') as tobecleaned:
+    for row in table[18].find_all('tr'):
+        print(row.text, file = tobecleaned)
+
+mylist = []
+myelement = []
+with open('tobecleaned18','r') as tobecleaned, open('cleanTable18', 'w') as output:
+    for line in tobecleaned:
+        line=line.strip()
+        line=line.replace(';',',') #added by Sonja because one field contains a ; creating trouble when using ; as separator later
+        line_list = line.split('\n')
+        mylist.append(line_list)
+        mylist = [x for x in mylist if x != ['']]
+    for lists in mylist:
+        for element in lists:
+            myelement.append(element)
+            ','. join(myelement)
+            tuples = list(zip(*[iter(myelement)]*3))
+    for tup in tuples[1:]:
+        print(';'.join(tup), file = output)
+        
+        
+        
+with open('tobecleaned20', 'w') as tobecleaned:
+    for row in table[20].find_all('tr'):
+        print(row.text, file = tobecleaned)
+
+mylist = []
+myelement = []
+with open('tobecleaned20','r') as tobecleaned, open('cleanTable20', 'w') as output:
+    for line in tobecleaned:
+        line=line.strip()
+        line=line.replace(';',',') #added by Sonja because one field contains a ; creating trouble when using ; as separator later
+        line_list = line.split('\n')
+        mylist.append(line_list)
+        mylist = [x for x in mylist if x != ['']]
+    for lists in mylist:
+        for element in lists:
+            myelement.append(element)
+            ','. join(myelement)
+            tuples = list(zip(*[iter(myelement)]*3))
+    for tup in tuples[1:]:
+        print(';'.join(tup), file = output)
+        
+        
+        
+with open('tobecleaned22', 'w') as tobecleaned:
+    for row in table[22].find_all('tr'):
+        print(row.text, file = tobecleaned)
+
+mylist = []
+myelement = []
+with open('tobecleaned22','r') as tobecleaned, open('cleanTable22', 'w') as output:
+    for line in tobecleaned:
+        line=line.strip()
+        line=line.replace(';',',') #added by Sonja because one field contains a ; creating trouble when using ; as separator later
+        line_list = line.split('\n')
+        mylist.append(line_list)
+        mylist = [x for x in mylist if x != ['']]
+    for lists in mylist:
+        for element in lists:
+            myelement.append(element)
+            ','. join(myelement)
+            tuples = list(zip(*[iter(myelement)]*3))
+    for tup in tuples[1:]:
+        print(';'.join(tup), file = output)
+        
+
+        
+with open('tobecleaned24', 'w') as tobecleaned:
+    for row in table[24].find_all('tr'):
+        print(row.text, file = tobecleaned)
+
+mylist = []
+myelement = []
+with open('tobecleaned24','r') as tobecleaned, open('cleanTable24', 'w') as output:
+    for line in tobecleaned:
+        line=line.strip()
+        line=line.replace(';',',') #added by Sonja because one field contains a ; creating trouble when using ; as separator later
+        line_list = line.split('\n')
+        mylist.append(line_list)
+        mylist = [x for x in mylist if x != ['']]
+    for lists in mylist:
+        for element in lists:
+            myelement.append(element)
+            ','. join(myelement)
+            tuples = list(zip(*[iter(myelement)]*3))
+    for tup in tuples[1:]:
+        print(';'.join(tup), file = output)
+        
+   
+with open('tobecleaned26', 'w') as tobecleaned:
+    for row in table[26].find_all('tr'):
+        print(row.text, file = tobecleaned)
+
+mylist = []
+myelement = []
+with open('tobecleaned26','r') as tobecleaned, open('cleanTable26', 'w') as output:
+    for line in tobecleaned:
+        line=line.strip()
+        line=line.replace(';',',') #added by Sonja because one field contains a ; creating trouble when using ; as separator later
+        line_list = line.split('\n')
+        mylist.append(line_list)
+        mylist = [x for x in mylist if x != ['']]
+    for lists in mylist:
+        for element in lists:
+            myelement.append(element)
+            ','. join(myelement)
+            tuples = list(zip(*[iter(myelement)]*3))
+    for tup in tuples[1:]:
+        print(';'.join(tup), file = output)
+        
+        
+with open('tobecleaned28', 'w') as tobecleaned:
+    for row in table[28].find_all('tr'):
+        print(row.text, file = tobecleaned)
+
+mylist = []
+myelement = []
+with open('tobecleaned28','r') as tobecleaned, open('cleanTable28', 'w') as output:
+    for line in tobecleaned:
+        line=line.strip()
+        line=line.replace(';',',') #added by Sonja because one field contains a ; creating trouble when using ; as separator later
+        line_list = line.split('\n')
+        mylist.append(line_list)
+        mylist = [x for x in mylist if x != ['']]
+    for lists in mylist:
+        for element in lists:
+            myelement.append(element)
+            ','. join(myelement)
+            tuples = list(zip(*[iter(myelement)]*3))
+    for tup in tuples[1:]:
+        print(';'.join(tup), file = output)
+        
+        
+with open('tobecleaned30', 'w') as tobecleaned:
+    for row in table[30].find_all('tr'):
+        print(row.text, file = tobecleaned)
+
+mylist = []
+myelement = []
+with open('tobecleaned30','r') as tobecleaned, open('cleanTable30', 'w') as output:
+    for line in tobecleaned:
+        line=line.strip()
+        line=line.replace(';',',') #added by Sonja because one field contains a ; creating trouble when using ; as separator later
+        line_list = line.split('\n')
+        mylist.append(line_list)
+        mylist = [x for x in mylist if x != ['']]
+    for lists in mylist:
+        for element in lists:
+            myelement.append(element)
+            ','. join(myelement)
+            tuples = list(zip(*[iter(myelement)]*3))
+    for tup in tuples[1:]:
+        print(';'.join(tup), file = output)
+        
+        
+with open('tobecleaned32', 'w') as tobecleaned:
+    for row in table[32].find_all('tr'):
+        print(row.text, file = tobecleaned)
+
+mylist = []
+myelement = []
+with open('tobecleaned32','r') as tobecleaned, open('cleanTable32', 'w') as output:
+    for line in tobecleaned:
+        line=line.strip()
+        line=line.replace(';',',') #added by Sonja because one field contains a ; creating trouble when using ; as separator later
+        line_list = line.split('\n')
+        mylist.append(line_list)
+        mylist = [x for x in mylist if x != ['']]
+    for lists in mylist:
+        for element in lists:
+            myelement.append(element)
+            ','. join(myelement)
+            tuples = list(zip(*[iter(myelement)]*3))
+    for tup in tuples[1:]:
+        print(';'.join(tup), file = output)
+        
+        
+        
+#TABLE34 IS EMPTY       
+with open('tobecleaned36', 'w') as tobecleaned:
+    for row in table[36].find_all('tr'):
+        print(row.text, file = tobecleaned)
+
+mylist = []
+myelement = []
+with open('tobecleaned36','r') as tobecleaned, open('cleanTable36', 'w') as output:
+    for line in tobecleaned:
+        line=line.strip()
+        line=line.replace(';',',') #added by Sonja because one field contains a ; creating trouble when using ; as separator later
+        line_list = line.split('\n')
+        mylist.append(line_list)
+        mylist = [x for x in mylist if x != ['']]
+    for lists in mylist:
+        for element in lists:
+            myelement.append(element)
+            ','. join(myelement)
+            tuples = list(zip(*[iter(myelement)]*3))
+    for tup in tuples[1:]:
+        print(';'.join(tup), file = output)
+        
+        
+        
+#TABLE 38 is empty      
+with open('tobecleaned40', 'w') as tobecleaned:
+    for row in table[40].find_all('tr'):
+        print(row.text, file = tobecleaned)
+
+mylist = []
+myelement = []
+with open('tobecleaned40','r') as tobecleaned, open('cleanTable40', 'w') as output:
+    for line in tobecleaned:
+        line=line.strip()
+        line=line.replace(';',',') #added by Sonja because one field contains a ; creating trouble when using ; as separator later
+        line_list = line.split('\n')
+        mylist.append(line_list)
+        mylist = [x for x in mylist if x != ['']]
+    for lists in mylist:
+        for element in lists:
+            myelement.append(element)
+            ','. join(myelement)
+            tuples = list(zip(*[iter(myelement)]*3))
+    for tup in tuples[1:]:
+        print(';'.join(tup), file = output)
+        
+        
+        
+with open('tobecleaned42', 'w') as tobecleaned:
+    for row in table[42].find_all('tr'):
+        print(row.text, file = tobecleaned)
+
+mylist = []
+myelement = []
+with open('tobecleaned42','r') as tobecleaned, open('cleanTable42', 'w') as output:
+    for line in tobecleaned:
+        line=line.strip()
+        line=line.replace(';',',') #added by Sonja because one field contains a ; creating trouble when using ; as separator later
+        line_list = line.split('\n')
+        mylist.append(line_list)
+        mylist = [x for x in mylist if x != ['']]
+    for lists in mylist:
+        for element in lists:
+            myelement.append(element)
+            ','. join(myelement)
+            tuples = list(zip(*[iter(myelement)]*3))
+    for tup in tuples[1:]:
+        print(';'.join(tup), file = output)
+        
+        
+
+with open('tobecleaned44', 'w') as tobecleaned:
+    for row in table[44].find_all('tr'):
+        print(row.text, file = tobecleaned)
+
+mylist = []
+myelement = []
+with open('tobecleaned44','r') as tobecleaned, open('cleanTable44', 'w') as output:
+    for line in tobecleaned:
+        line=line.strip()
+        line=line.replace(';',',') #added by Sonja because one field contains a ; creating trouble when using ; as separator later
+        line_list = line.split('\n')
+        mylist.append(line_list)
+        mylist = [x for x in mylist if x != ['']]
+    for lists in mylist:
+        for element in lists:
+            myelement.append(element)
+            ','. join(myelement)
+            tuples = list(zip(*[iter(myelement)]*3))
+    for tup in tuples[1:]:
+        print(';'.join(tup), file = output)
+        
+        
+        
+with open('tobecleaned46', 'w') as tobecleaned:
+    for row in table[46].find_all('tr'):
+        print(row.text, file = tobecleaned)
+
+mylist = []
+myelement = []
+with open('tobecleaned46','r') as tobecleaned, open('cleanTable46', 'w') as output:
+    for line in tobecleaned:
+        line=line.strip()
+        line=line.replace(';',',') #added by Sonja because one field contains a ; creating trouble when using ; as separator later
+        line_list = line.split('\n')
+        mylist.append(line_list)
+        mylist = [x for x in mylist if x != ['']]
+    for lists in mylist:
+        for element in lists:
+            myelement.append(element)
+            ','. join(myelement)
+            tuples = list(zip(*[iter(myelement)]*3))
+    for tup in tuples[1:]:
+        print(';'.join(tup), file = output)
+        
+        
+        
+with open('tobecleaned48', 'w') as tobecleaned:
+    for row in table[48].find_all('tr'):
+        print(row.text, file = tobecleaned)
+
+mylist = []
+myelement = []
+with open('tobecleaned48','r') as tobecleaned, open('cleanTable48', 'w') as output:
+    for line in tobecleaned:
+        line=line.strip()
+        line=line.replace(';',',') #added by Sonja because one field contains a ; creating trouble when using ; as separator later
+        line_list = line.split('\n')
+        mylist.append(line_list)
+        mylist = [x for x in mylist if x != ['']]
+    for lists in mylist:
+        for element in lists:
+            myelement.append(element)
+            ','. join(myelement)
+            tuples = list(zip(*[iter(myelement)]*3))
+    for tup in tuples[1:]:
+        print(';'.join(tup), file = output)
+        
+        
+        
+with open('tobecleaned50', 'w') as tobecleaned:
+    for row in table[50].find_all('tr'):
+        print(row.text, file = tobecleaned)
+
+mylist = []
+myelement = []
+with open('tobecleaned50','r') as tobecleaned, open('cleanTable50', 'w') as output:
+    for line in tobecleaned:
+        line=line.strip()
+        line=line.replace(';',',') #added by Sonja because one field contains a ; creating trouble when using ; as separator later
+        line_list = line.split('\n')
+        mylist.append(line_list)
+        mylist = [x for x in mylist if x != ['']]
+    for lists in mylist:
+        for element in lists:
+            myelement.append(element)
+            ','. join(myelement)
+            tuples = list(zip(*[iter(myelement)]*3))
+    for tup in tuples[1:]:
+        print(';'.join(tup), file = output)
+        
+        
+        
+#Tables 52,54 were empty
+with open('tobecleaned56', 'w') as tobecleaned:
+    for row in table[56].find_all('tr'):
+        print(row.text, file = tobecleaned)
+
+mylist = []
+myelement = []
+with open('tobecleaned56','r') as tobecleaned, open('cleanTable56', 'w') as output:
+    for line in tobecleaned:
+        line=line.strip()
+        line=line.replace(';',',') #added by Sonja because one field contains a ; creating trouble when using ; as separator later
+        line_list = line.split('\n')
+        mylist.append(line_list)
+        mylist = [x for x in mylist if x != ['']]
+    for lists in mylist:
+        for element in lists:
+            myelement.append(element)
+            ','. join(myelement)
+            tuples = list(zip(*[iter(myelement)]*3))
+    for tup in tuples[1:]:
+        print(';'.join(tup), file = output)
+
+#combine all files in the list (added by Sonja)
+filenames = glob.glob("cleanTable*")
+print(filenames)
+
+with open('TBU_HumanAutophagy_DB', 'w', encoding = 'utf-8') as outfile:
+    for f in filenames:
+        with open(f) as infile:
+            outfile.write(infile.read())
+            
+#create file with GeneIds (added by Sonja)
+df_HumanAutophagy_DB = pd.read_csv('TBU_HumanAutophagy_DB', sep = ';', header=0)
+df_HumanAutophagy_DB['GeneId'].to_csv('HumanAutophagy_DB_GeneId.txt', index=None, sep=' ')
+
+"""
+upload the Ids from HumanAutophagy_DB_GeneId.txt to https://www.uniprot.org/uploadlists/. 
+Chose the 'from' option as Entrez Gene (GeneID) and the 'To' option as UniProtKB. 
+Download the results in tab-separated format and save as mapped_uniprot_HADB, 
+click on reviewed and save as mapped_uniprot_HADB_reviewed, and
+click on unreviewed and save as mapped_uniprot_HADB_unreviewed. 
+Click on "Click here to download the nn unmapped identifier" and save in file 'unmapped_uniprot_HADB.txt'. 
+Click on Duplicate identifiers found and save file as 'duplicates_uniprot_HADB'.txt All files later to be archived in folder mappingresults.
+
+"""
+
+#Parsing Human Autophagy database
+entrez_uniprot = {} # will hold the entrezID from the mapped entries.
+myDict = {} #this will be the big dictionary that will hold entGeneIDs, name , uniprotID, symbol from the original file.
+with open('TBU_HumanAutophagy_DB', 'r') as tbu, open('mapped_uniprot_HADB.tab.','r') as mapped, open('TBU_New_HADB', 'w') as out:
+    print('GeneId_HADB', 'Uniprot_HADB','Name_HADB','Symbol_HADB', sep = ';', file = out)
+    for line in mapped:
+        if not 'yourlist' in line:
+            line=line.rstrip()
+            line=line.split('\t')
+            entrezID= line[0]
+            uniprot = line[1]
+            entrez_uniprot[uniprot] = entrezID
+    for line in tbu:
+        if not 'GeneId' in line:
+            line=line.rstrip()
+            line=line.split(';')
+            entGeneID = line[0]
+            myDict[entGeneID] = {}
+            name = line[1]
+            myDict[entGeneID]['name'] = name
+            symbol=line[2]
+            myDict[entGeneID]['symbol'] = symbol
+    for uniprot,entrezID in entrez_uniprot.items():
+        if entrezID in myDict:
             print(entrezID, uniprot,myDict[entrezID]['name'], myDict[entrezID]['symbol'], sep = ';', file = out)
 #-------------------------------
 
@@ -1117,13 +1713,32 @@ with open ('HumanLysosomeGene_table', 'w') as out:
             header = ";".join(list_head)
             #append the cells in each row to a list
         for cell in row.find_all('td'):
-            list_rows.append(cell.text)
+            text = cell.text.replace(';',',') #added by Sonja because one field contains a ; creating trouble when using ; as separator later
+            list_rows.append(text)
             list_rows = list(filter(None,list_rows))
     print(header, file = out)
     tuples = list(zip(*[iter(list_rows)]*3))
     
     for tup in tuples: #keep in mind that the delimiter is a ';'
         print(';'.join(tup), file = out)
+        
+#create file with Symbols (added by Sonja)
+# open file 'HumanLysosomeGene_table' and manually replace DKFZp761E198 with correct symbol AP5B1, fix the lines where the reference has its own line starting with ; Then save as HumanLysosomeGene_table_clean
+df_HumanLysosomeGene = pd.read_csv('HumanLysosomeGene_table_cleaned.txt', sep = ';', header=0)
+df_HumanLysosomeGene['Symbol'].to_csv('HumanLysosomeGene_Symbol.txt', index=None, sep=' ')
+
+"""
+upload the symbols from HumanLysosomeGene_Symbol.txt to https://www.uniprot.org/uploadlists/
+Chose the 'from' option as Gene name,the 'To' option as UniProtKB and the organism as Homo sapiens. 
+Download the results in tab-separated format and save as mapped_uniprot_HumanLysosomeGene, 
+click on reviewed and save as mapped_uniprot_HumanLysosomeGene_reviewed, and 
+click on unreviewed and save as mapped_uniprot_HumanLysosomeGene_unreviewed. 
+Extract tab files and save with same name. 
+Click on "Click here to download the nn unmapped identifier" and save in file 'unmapped_uniprot_HADB.txt'. 
+Click on Duplicate identifiers found and save file as 'duplicates_uniprot_HADB'.txt
+All files later to be archived in folder mappingresults.
+
+"""
         
 #Parsing Human Lysosome Gene database
 

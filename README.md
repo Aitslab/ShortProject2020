@@ -30,7 +30,7 @@ Some codes should be run a long with the correct packages from packages.py.<br>
 Data from Uniprot, The CASBAH, The Human Lysosome Gene Database and The Mouse Lysosome Gene Database had to be downloaded manually (see below in step-by-step):
 
 * webscraping.py<br>
-Runs codes written for parsing databases that were not available for download. HTML scraping was the method used in this case. Some scraping codes were followed by another code to fix the data structure in the database.
+Runs codes written for parsing databases that were not available for download. HTML scraping was the method used in this case. Some scraping codes were followed by another code to fix the data structure in the database. Note that some steps have to be performed manually, see comments in the code
 
 * parse.py<br>
 Involves codes written for parsing the databases that were available for download in order to extract necessary fields.
@@ -88,7 +88,10 @@ The Human Lysosome Gene Database and The Mouse Lysosome Gene Database
 go to http://lysosome.unipg.it/index.php and http://lysosome.unipg.it/mouse.php, click query and then save html page with results as TheHumanLysosomeGene.html and TheMouseLysosomeGene.html. Alternatively (not in this project), tick download results in delimited format and then click query to get a csv file.
 
 #### Step 3: parse html files
-- run webscraping.py to parse data from BCL2 database files, The CASBAH and The Human Autophagy Database
+- run webscraping.py to parse data from BCL2 database files, The CASBAH, The Human Autophagy Database, The Human Autophagy Gene Database and The Mouse Autophagy Gene Database (note that some steps have to be performed manually)
+
+#### Step 4: parse the other database files
+- run parse.py
 
 
 Alternative:

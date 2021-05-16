@@ -1262,7 +1262,143 @@ with open('prefinal_HLGB_reviewed', 'r') as pre, open ('TBU_HumanLysosomeGene_re
         if not line.startswith('nan'):
             print(line,file = tbu)
 #cat header TBU_HumanLysosomeGene_reviewed_DB> TBU_TheHumanLysosomeGene_reviewed 
-
-
     
 #-----------------------------
+
+
+#Dealing with Mouse Lysosome Gene database
+
+with open('TheMouseLysosomeGene.html', 'r') as html_file:
+    soup = BeautifulSoup(html_file, 'lxml')
+    table = soup.find_all('table')
+#len(table)
+
+list_head = []
+list_rows= []
+
+with open ('MouseLysosomeGene_table', 'w') as out:
+    for row in table[1].find_all('tr'):
+        for head in row.find_all('th'):
+            #append the headers to a list and join with commas (easier to parse)
+            list_head.append(head.text)
+            list_head = list(filter(None,list_head))
+            header = ";".join(list_head)
+            #append the cells in each row to a list
+        for cell in row.find_all('td'):
+            text = cell.text.replace(';',',') #added by Sonja because one field contains a ; creating trouble when using ; as separator later
+            text = text.replace('0610031J06Ri','Glmp') #added by Sonja because this is the official gene name
+            text = text.replace('0910001L09Ri','Lamtor4')
+            text = text.replace('1700021K19Ri','Rubcn')
+            text = text.replace('2010106G01Ri','Sppl2a')
+            text = text.replace('2310035K24Ri','Ap5s1')
+            text = text.replace('3110056O03Ri','Sppl2b')
+            text = text.replace('4930471M23Ri','Slc35f6')
+            text = text.replace('5430435G22Ri','Rab7b')
+            text = text.replace('Nup62-il4i1','Il4i1') #note that the official gene name is Il4i1b but this is not recognized by Uniprot
+            text = text.replace('Il4i1 protein','Nup62-il4i1 protein') #added by Sonja to change back the protein name
+            list_rows.append(text)
+            list_rows = list(filter(None,list_rows))
+    print(header, file = out)
+    tuples = list(zip(*[iter(list_rows)]*3))
+    
+    for tup in tuples: #keep in mind that the delimiter is a ';'
+        print(';'.join(tup), file = out)
+
+#Generate list of symbols to be used for mapping in Uniprot
+count = 0
+symbol_list =[]
+with open('MouseLysosomeGene_table', 'r') as table, open ('MouseLysosomeGene_symbol', 'w') as symb, open('MouseLysosomeGene_name','w' ) as nam:
+    for line in table:
+        line=line.rstrip()
+        line=line.split(';')
+        symbol = line[0]
+        name = line[1]
+        print(name, file = nam)
+        symbol_list.append(symbol)
+        #some references are printed with the name creating an empty line in the list of symbols. 
+        #replace the empty line with nan (this will be eliminated at later steps)
+        symbol_list = ['nan' if x == '' else x for x in symbol_list]
+    for element in symbol_list:
+            print(element, file = symb)
+        
+"""
+MANUAL STEPS
+Upload the symbols from MouseLysosomeGene_symbol to https://www.uniprot.org/uploadlists/
+Chose the 'from' option as Gene name,the 'To' option as UniProtKB and the organism as Mus musculus. 
+Download the results in tab-separated format and save as mapped_uniprot_MouseLysosomeGene, 
+click on reviewed and save as mapped_uniprot_MouseLysosomeGene_reviewed, and 
+click on unreviewed and save as mapped_uniprot_MouseLysosomeGene_unreviewed. 
+Click on "Click here to download the nn unmapped identifier" and save in file 'unmapped_uniprot_MouseLysosomeGene.txt'. 
+All files later to be archived in folder mappingresults.
+
+"""
+
+#Parsing Mouse Lysosome Gene database
+#REVIEWED Uniprot entries
+
+syn_list = []
+synonym_list = []
+count = 0
+with open('mapped_uniprot_MouseLysosomeGene_reviewed', 'r') as mapp, open('synonyms_MLGB_reviewed', 'w') as out, open('prefinal_MLGB_reviewed', 'w') as pre:
+    lines = mapp.readlines()[1:]
+    for line in lines:
+        syn_list = []
+        line = line.rstrip()
+        line=line.split('\t')
+        uniprot = line[1]
+        protname= line[4].replace(';', ',')
+        org = line[6]
+        gsyn = line[5].replace(' ', ',').split(',')
+        symbol = gsyn[0]
+        print(uniprot, symbol, protname, org, sep = ';', file = pre)
+        synonym = gsyn[1:]
+        for element in synonym:
+            syn_list.append(element)
+            synonym = ','.join(syn_list)
+        synonym_list.append(synonym)         
+    synonym_list = ["nan" if x == [] else x for x in synonym_list] #remove [] from the list
+    for element in synonym_list:
+        print(element, file = out)
+        
+#paste -d ';' prefinal_MLGB_reviewed synonyms_MLGB_reviewed > mappedToUni_MouseLGDB_reviewed (add the content of both files as columns separated by ';' to the mappedToUni_HumanLGDB file)
+
+with open('prefinal_MLGB_reviewed', 'r') as pre, open ('TBU_MouseLysosomeGene_reviewed_DB', 'w') as tbu:
+    for line in pre:
+        line= line.rstrip()
+        if not line.startswith('nan'):
+            print(line,file = tbu)
+#cat header TBU_MouseLysosomeGene_reviewed_DB> TBU_TheMouseLysosomeGene_reviewed  
+
+#UNREVIEWED Uniprot entries (added by Sonja)
+syn_list = []
+synonym_list = []
+count = 0
+with open('mapped_uniprot_MouseLysosomeGene_unreviewed', 'r') as mapp, open('synonyms_MLGB_unreviewed', 'w') as out, open('prefinal_MLGB_unreviewed', 'w') as pre:
+    lines = mapp.readlines()[1:]
+    for line in lines:
+        syn_list = []
+        line = line.rstrip()
+        line=line.split('\t')
+        uniprot = line[1]
+        protname= line[4].replace(';', ',')
+        org = line[6]
+        gsyn = line[5].replace(' ', ',').split(',')
+        symbol = gsyn[0]
+        print(uniprot, symbol, protname, org, sep = ';', file = pre)
+        synonym = gsyn[1:]
+        for element in synonym:
+            syn_list.append(element)
+            synonym = ','.join(syn_list)
+        synonym_list.append(synonym)         
+    synonym_list = ["nan" if x == [] else x for x in synonym_list] #remove [] from the list
+    for element in synonym_list:
+        print(element, file = out)
+        
+#paste -d ';' prefinal_MLGB_unreviewed synonyms_MLGB_unreviewed > mappedToUni_MouseLGDB_unreviewed (add the content of both files as columns separated by ';' to the mappedToUni_HumanLGDB file)
+
+with open('prefinal_MLGB_reviewed', 'r') as pre, open ('TBU_MouseLysosomeGene_reviewed_DB', 'w') as tbu: 
+    for line in pre:
+        line= line.rstrip()
+        if not line.startswith('nan'):
+            print(line,file = tbu)
+#cat header TBU_MouseLysosomeGene_reviewed_DB> TBU_TheMouseLysosomeGene_reviewed 

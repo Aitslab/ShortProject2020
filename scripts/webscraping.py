@@ -465,7 +465,7 @@ with open('CASBAH_Fulltable.csv', 'w', encoding = 'utf-8') as outfile:
 #Parsing CASBAH:
 
 #Print each organism's name at the end of its line. 
-with open('CASBAH_Fulltable.csv', 'r') as full, open('TBU_CASBAH', 'w') as out:
+with open('CASBAH_Fulltable.csv', 'r') as full, open('TBU_CASBAH_withduplicates', 'w') as out:
     print('Name_CASBAH', 'Uniprot_CASBAH', 'Synonyms_CASBAH', 'Organism_CASBAH', sep = ';', file = out)
     for line in full:
         if not 'Uni Prot' in line:
@@ -501,7 +501,7 @@ with open('CASBAH_Fulltable.csv', 'r') as full, open('TBU_CASBAH', 'w') as out:
 # remove duplicates (added by Sonja)
 df = pd.read_csv('TBU_CASBAH', sep = ';')
 df.drop_duplicates(inplace=True)
-df.to_csv('TBU_CASBAH_nodupl', sep = ';', index=False)
+df.to_csv('TBU_CASBAH', sep = ';', index=False)
 #-----------------------------
 
 #Dealing with Human Autophagy Database (HADB)

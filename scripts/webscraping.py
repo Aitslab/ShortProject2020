@@ -1153,6 +1153,8 @@ with open ('HumanLysosomeGene_table', 'w') as out:
             #append the cells in each row to a list
         for cell in row.find_all('td'):
             text = cell.text.replace(';',',') #added by Sonja because one field contains a ; creating trouble when using ; as separator later
+            text = text.replace('DKFZp761E198','AP5B1') #added by Sonja because this is the official gene name
+            text = text.replace('AP5B1 protein','DKFZp761E198 protein') #added by Sonja to change back the protein name
             list_rows.append(text)
             list_rows = list(filter(None,list_rows))
     print(header, file = out)
@@ -1160,30 +1162,11 @@ with open ('HumanLysosomeGene_table', 'w') as out:
     
     for tup in tuples: #keep in mind that the delimiter is a ';'
         print(';'.join(tup), file = out)
-        
-#create file with Symbols (added by Sonja)
-# open file 'HumanLysosomeGene_table' and manually replace DKFZp761E198 with correct symbol AP5B1, fix the lines where the reference has its own line starting with ; Then save as HumanLysosomeGene_table_clean
-df_HumanLysosomeGene = pd.read_csv('HumanLysosomeGene_table_cleaned.txt', sep = ';', header=0)
-df_HumanLysosomeGene['Symbol'].to_csv('HumanLysosomeGene_Symbol.txt', index=None, sep=' ')
 
-"""
-upload the symbols from HumanLysosomeGene_Symbol.txt to https://www.uniprot.org/uploadlists/
-Chose the 'from' option as Gene name,the 'To' option as UniProtKB and the organism as Homo sapiens. 
-Download the results in tab-separated format and save as mapped_uniprot_HumanLysosomeGene, 
-click on reviewed and save as mapped_uniprot_HumanLysosomeGene_reviewed, and 
-click on unreviewed and save as mapped_uniprot_HumanLysosomeGene_unreviewed. 
-Extract tab files and save with same name. 
-Click on "Click here to download the nn unmapped identifier" and save in file 'unmapped_uniprot_HADB.txt'. 
-Click on Duplicate identifiers found and save file as 'duplicates_uniprot_HADB'.txt
-All files later to be archived in folder mappingresults.
-
-"""
-        
-#Parsing Human Lysosome Gene database
-
+#Generate list of symbols to be used for mapping in Uniprot
 count = 0
 symbol_list =[]
-with open('HumanLysosomeGene_table', 'r') as table, open ('symbol', 'w') as symb, open('name','w' ) as nam:
+with open('HumanLysosomeGene_table', 'r') as table, open ('HumanLysosomeGene_symbol', 'w') as symb, open('HumanLysosomeGene_name','w' ) as nam:
     for line in table:
         line=line.rstrip()
         line=line.split(';')
@@ -1196,10 +1179,90 @@ with open('HumanLysosomeGene_table', 'r') as table, open ('symbol', 'w') as symb
         symbol_list = ['nan' if x == '' else x for x in symbol_list]
     for element in symbol_list:
             print(element, file = symb)
-with open('prefinal_HLG', 'r') as pre, open ('TBU_HumanLysosomeGene_DB', 'w') as tbu:
+        
+"""
+MANUAL STEPS
+Upload the symbols from HumanLysosomeGene_symbol to https://www.uniprot.org/uploadlists/
+Chose the 'from' option as Gene name,the 'To' option as UniProtKB and the organism as Homo sapiens. 
+Download the results in tab-separated format and save as mapped_uniprot_HumanLysosomeGene, 
+click on reviewed and save as mapped_uniprot_HumanLysosomeGene_reviewed, and 
+click on unreviewed and save as mapped_uniprot_HumanLysosomeGene_unreviewed. 
+Extract tab files and save with same name. 
+Click on "Click here to download the nn unmapped identifier" and save in file 'unmapped_uniprot_HumanLysosomeGene.txt'. 
+All files later to be archived in folder mappingresults.
+
+"""
+
+#Parsing Human Lysosome Gene database
+#REVIEWED Uniprot entries
+
+syn_list = []
+synonym_list = []
+count = 0
+with open('mapped_uniprot_HumanLysosomeGene_reviewed', 'r') as mapp, open('synonyms_HLGB_reviewed', 'w') as out, open('prefinal_HLGB_reviewed', 'w') as pre:
+    lines = mapp.readlines()[1:]
+    for line in lines:
+        syn_list = []
+        line = line.rstrip()
+        line=line.split('\t')
+        uniprot = line[1]
+        protname= line[4].replace(';', ',')
+        org = line[6]
+        gsyn = line[5].replace(' ', ',').split(',')
+        symbol = gsyn[0]
+        print(uniprot, symbol, protname, org, sep = ';', file = pre)
+        synonym = gsyn[1:]
+        for element in synonym:
+            syn_list.append(element)
+            synonym = ','.join(syn_list)
+        synonym_list.append(synonym)         
+    synonym_list = ["nan" if x == [] else x for x in synonym_list] #remove [] from the list
+    for element in synonym_list:
+        print(element, file = out)
+        
+#paste -d ';' prefinal_HLGB_reviewed synonyms_HLGB_reviewed > mappedToUni_HumanLGDB_reviewed (add the content of both files as columns separated by ';' to the mappedToUni_HumanLGDB file)
+
+with open('prefinal_HLGB_reviewed', 'r') as pre, open ('TBU_HumanLysosomeGene_reviewed_DB', 'w') as tbu:
     for line in pre:
         line= line.rstrip()
         if not line.startswith('nan'):
             print(line,file = tbu)
-#cat header TBU_HumanLysosomeGene_DB> TBU_TheHumanLysosomeGene            
+#cat header TBU_HumanLysosomeGene_reviewed_DB> TBU_TheHumanLysosomeGene_reviewed  
+
+#UNREVIEWED Uniprot entries (added by Sonja)
+syn_list = []
+synonym_list = []
+count = 0
+with open('mapped_uniprot_HumanLysosomeGene_unreviewed', 'r') as mapp, open('synonyms_HLGB_unreviewed', 'w') as out, open('prefinal_HLGB_unreviewed', 'w') as pre:
+    lines = mapp.readlines()[1:]
+    for line in lines:
+        syn_list = []
+        line = line.rstrip()
+        line=line.split('\t')
+        uniprot = line[1]
+        protname= line[4].replace(';', ',')
+        org = line[6]
+        gsyn = line[5].replace(' ', ',').split(',')
+        symbol = gsyn[0]
+        print(uniprot, symbol, protname, org, sep = ';', file = pre)
+        synonym = gsyn[1:]
+        for element in synonym:
+            syn_list.append(element)
+            synonym = ','.join(syn_list)
+        synonym_list.append(synonym)         
+    synonym_list = ["nan" if x == [] else x for x in synonym_list] #remove [] from the list
+    for element in synonym_list:
+        print(element, file = out)
+        
+#paste -d ';' prefinal_HLGB_unreviewed synonyms_HLGB_unreviewed > mappedToUni_HumanLGDB_unreviewed (add the content of both files as columns separated by ';' to the mappedToUni_HumanLGDB file)
+
+with open('prefinal_HLGB_reviewed', 'r') as pre, open ('TBU_HumanLysosomeGene_reviewed_DB', 'w') as tbu: 
+    for line in pre:
+        line= line.rstrip()
+        if not line.startswith('nan'):
+            print(line,file = tbu)
+#cat header TBU_HumanLysosomeGene_reviewed_DB> TBU_TheHumanLysosomeGene_reviewed 
+
+
+    
 #-----------------------------

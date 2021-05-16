@@ -1266,7 +1266,7 @@ with open('prefinal_HLGB_reviewed', 'r') as pre, open ('TBU_HumanLysosomeGene_re
 #-----------------------------
 
 
-#Dealing with Mouse Lysosome Gene database
+#Dealing with Mouse Lysosome Gene database (added by Sonja)
 
 with open('TheMouseLysosomeGene.html', 'r') as html_file:
     soup = BeautifulSoup(html_file, 'lxml')

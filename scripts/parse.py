@@ -6,6 +6,10 @@
 #
 #---------------------------------
 
+#SCRIPT TO PARSE DATABASES THAT WERE AVAILABLE FOR DOWNLOAD.
+#
+#---------------------------------
+
 #Parsing Human Autophagy Modulator Database (HAMdb)
 
 mylist=[]
@@ -19,7 +23,7 @@ junk_list= ['metastatic prostate cancer; primary prostate cancer', '1GAG;1I44;1I
 alter_list = []
 
 #each file ('w') is used to include one field (e.g. Symbol, uniprot_ID, organism) these fields will be all pasted in bash.
-with open('protein-basic.csv', 'r', encoding = 'latin1') as protein, open('TBU_Symbol', 'w') as output, open('TBU_uniprot', 'w') as out, open('TBU_homo', 'w') as out2:
+with open('protein-basic.csv', 'r', encoding = 'ANSI') as protein, open('TBU_Symbol', 'w') as output, open('TBU_uniprot', 'w') as out, open('TBU_homo', 'w') as out2:
     for line in protein:
         #The following line will be used to extract homo_sapiens from the splitted list
         line_homo = line.split(',')
@@ -38,16 +42,17 @@ with open('protein-basic.csv', 'r', encoding = 'latin1') as protein, open('TBU_S
         print(element, file = out)
 
 #specify the delimiter in the output file
-df = pd.read_csv('protein-basic.csv', encoding = 'latin1')
+df = pd.read_csv('protein-basic.csv', encoding = 'ANSI')
 outfile = 'protein_output'
 df.to_csv(outfile,index=False, sep = '|')
 
-with open('protein_output', 'r') as protein, open('alternative_output', 'w') as alt:
+with open('protein_output', 'r', encoding = 'ANSI') as protein, open('alternative_output', 'w') as alt:
     for line in protein:
         line = line.split('|')
         if not line[5] in junk_list:
-            print(line[5], file = alt)
-with open('alternative_output','r') as tbu, open('TBU_alternative', 'w') as out:
+            cleanline = line[5].replace(';', '|')
+            print(cleanline, file = alt)
+with open('alternative_output','r', encoding = 'ANSI') as tbu, open('TBU_alternative', 'w') as out:
     for line in tbu:
         line = line.rstrip()
         alter_list.append(line)
@@ -56,11 +61,18 @@ with open('alternative_output','r') as tbu, open('TBU_alternative', 'w') as out:
     alter_list.pop(736)
     for element in alter_list:
         print(element, file = out)
-#paste -d '|' TBU_Symbol TBU_uniprot TBU_alternative TBU_homo > TBU_protein-basic
-#cat headers TBU_protein-basic > TBU_protein_basic
 
-#remove 'nan' uniprot IDs
-with open('TBU_protein_basic', 'r') as TBU, open('TBU_proteinbasicHAMdb_clean', 'w') as clean, open('proteinbasicHAMdb_nan', 'w') as nan:
+#concatenate files and mark empty UniprotID
+df1 = pd.read_csv("TBU_Symbol")
+df2 = pd.read_csv("TBU_uniprot")
+df3 = pd.read_csv("TBU_alternative")
+df4 = pd.read_csv("TBU_homo")
+joint = pd.concat([df1, df2, df3, df4], axis=1)
+joint['Uniprot_ID'] = joint['Uniprot_ID'].fillna("noID")
+joint.to_csv('TBU_protein-basic', index=None, sep=';')
+
+#remove 'noID' uniprot IDs
+with open('TBU_protein-basic', 'r') as TBU, open('TBU_proteinbasicHAMdb_clean', 'w') as clean, open('proteinbasicHAMdb_nan', 'w') as nan:
     print('UniprotID_HAMdb','Symbol_HAMdb','AlternativeNAmes_HAMdb','Organism_HAMdb', sep = ';', file = nan)
     for line in TBU:
         line=line.rstrip()
@@ -69,7 +81,7 @@ with open('TBU_protein_basic', 'r') as TBU, open('TBU_proteinbasicHAMdb_clean', 
         symbol = line[0]
         altname = line[2]
         org = line[3]
-        if not 'nan' in unipID:
+        if not 'noID' in unipID:
             print(unipID,symbol,altname,org, sep = ';', file = clean)
         else:
             print(unipID,symbol,altname,org, sep = ';', file = nan)

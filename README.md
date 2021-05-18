@@ -89,7 +89,7 @@ go to http://bioinf.gen.tcd.ie/cgi-bin/casbah/casbah.pl, in the bottom change th
 
 go to http://lysosome.unipg.it/index.php and http://lysosome.unipg.it/mouse.php, click query and then save html page with results as TheHumanLysosomeGene.html and TheMouseLysosomeGene.html. Alternatively (not in this project), tick download results in delimited format and then click query to get a csv file.
 
-###### Hela Spatial Proteome (Itzhak 2016) http://mapofthecell.biochem.mpg.de/index.html
+##### Hela Spatial Proteome (Itzhak 2016) http://mapofthecell.biochem.mpg.de/index.html
 
 download the Summary file: http://mapofthecell.biochem.mpg.de/HeLa_Subcell_Localization_Interactive_Database.xlsx
 

@@ -18,9 +18,10 @@ import gzip
 import zipfile
 from zipfile import ZipFile
 
-#to read and write csv files
+#to read and write csv files and xlsx files
 import csv
 import pandas as pd #also used for reading htmls
+import openpyxl
 
 #for webscraping
 import bs4

@@ -87,6 +87,12 @@ The Human Lysosome Gene Database and The Mouse Lysosome Gene Database
 
 go to http://lysosome.unipg.it/index.php and http://lysosome.unipg.it/mouse.php, click query and then save html page with results as TheHumanLysosomeGene.html and TheMouseLysosomeGene.html. Alternatively (not in this project), tick download results in delimited format and then click query to get a csv file.
 
+Hela and Mouse Neuron Spatial Proteome (Itzhak 2017) 
+download https://www.cell.com/cms/10.1016/j.celrep.2017.08.063/attachment/235fbebe-76e4-48f9-a1a0-aa8c49d68426/mmc2.xlsx
+
+and https://www.cell.com/cms/10.1016/j.celrep.2017.08.063/attachment/8fea18cb-44bf-40ee-a7ff-bb958bea8fb0/mmc3.xlsx
+afterwards copy data to a new excel file and then save as .csv files
+
 #### Step 3: parse html files
 - run webscraping.py to parse data from BCL2 database files, The CASBAH, The Human Autophagy Database, The Human Autophagy Gene Database and The Mouse Autophagy Gene Database (note that some steps have to be performed manually)
 

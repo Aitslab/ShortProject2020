@@ -16,6 +16,7 @@ Some databases were available for download(see datadownload.py), while others we
 * goatools
 * lxml
 * glob
+* openpyxl
 
 All the scripts were run using python. 
 
@@ -69,6 +70,7 @@ All codes were written in Jupyter notebook (v6.0.1). The name or the path of the
 - install owlready2: conda install -c conda-forge owlready2
 - install goatools: pip install goatools
 - install lxml: pip install lxml
+- install openpyxl: conda install -c anaconda openpyxl 
 
 #### Step 2: download data
 - run packages.py to import packages and then datadownload.py to get the raw data, place data in folder "rawdata"

@@ -74,7 +74,7 @@ All codes were written in Jupyter notebook (v6.0.1). The name or the path of the
 
 #### Step 2: download data
 - run packages.py to import packages and then datadownload.py to get the raw data, place data in folder "rawdata"
-- download Uniprot data and data from Human Autophagy Gene Database and Mouse Autophagy Gene Database manually
+- download Uniprot data and data from Human Autophagy Gene Database and Mouse Autophagy Gene Database manually and the proteome data from Itzhak 2016 and 2017
 
 ##### Uniprot
 
@@ -91,7 +91,7 @@ go to http://lysosome.unipg.it/index.php and http://lysosome.unipg.it/mouse.php,
 
 ##### Hela Spatial Proteome (Itzhak 2016) http://mapofthecell.biochem.mpg.de/index.html
 
-download the Summary file: http://mapofthecell.biochem.mpg.de/HeLa_Subcell_Localization_Interactive_Database.xlsx
+download the Summary file: http://mapofthecell.biochem.mpg.de/HeLa_Subcell_Localization_Interactive_Database.xlsx and save as 'Hela_Subcell_localization_Itzhak2016.xlsx'
 
 ##### Hela and Mouse Neuron Spatial Proteome (Itzhak 2017) https://doi.org/10.1016/j.celrep.2017.08.063
 

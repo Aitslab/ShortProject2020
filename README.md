@@ -76,24 +76,24 @@ All codes were written in Jupyter notebook (v6.0.1). The name or the path of the
 - run packages.py to import packages and then datadownload.py to get the raw data, place data in folder "rawdata"
 - download Uniprot data and data from Human Autophagy Gene Database and Mouse Autophagy Gene Database manually
 
-Uniprot
+##### Uniprot
 
 go to https://www.uniprot.org/uniprot/?query=lysosome&sort=score and https://www.uniprot.org/uniprot/?query=autophagosome&sort=score, click on download and choose tab-separated (release 2020_02). Alternative data source (not in this project): search for autophagosome or lysosome in subcellular locations
 https://www.uniprot.org/uniprot/?query=locations:(location:%22Autophagosome%20[SL-0023]%22) and https://www.uniprot.org/uniprot/?query=locations:(location:%22Lysosome%20[SL-0158]%22), click download and choose tab-separted 
 
-The CASBAH
+##### The CASBAH
 
 go to http://bioinf.gen.tcd.ie/cgi-bin/casbah/casbah.pl, in the bottom change the table rows number to fit the number of entries (e.g. 777) BUT leave the data rows number at 50, click enter (check that only one table is shown), then save the html file as The_CASBAH.html
 
-The Human Lysosome Gene Database and The Mouse Lysosome Gene Database
+##### The Human Lysosome Gene Database and The Mouse Lysosome Gene Database
 
 go to http://lysosome.unipg.it/index.php and http://lysosome.unipg.it/mouse.php, click query and then save html page with results as TheHumanLysosomeGene.html and TheMouseLysosomeGene.html. Alternatively (not in this project), tick download results in delimited format and then click query to get a csv file.
 
-Hela Spatial Proteome (Itzhak 2016) http://mapofthecell.biochem.mpg.de/index.html
+###### Hela Spatial Proteome (Itzhak 2016) http://mapofthecell.biochem.mpg.de/index.html
 
 download the Summary file: http://mapofthecell.biochem.mpg.de/HeLa_Subcell_Localization_Interactive_Database.xlsx
 
-Hela and Mouse Neuron Spatial Proteome (Itzhak 2017) https://doi.org/10.1016/j.celrep.2017.08.063
+##### Hela and Mouse Neuron Spatial Proteome (Itzhak 2017) https://doi.org/10.1016/j.celrep.2017.08.063
 
 download https://www.cell.com/cms/10.1016/j.celrep.2017.08.063/attachment/235fbebe-76e4-48f9-a1a0-aa8c49d68426/mmc2.xlsx
 

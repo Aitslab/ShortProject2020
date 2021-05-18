@@ -89,7 +89,12 @@ The Human Lysosome Gene Database and The Mouse Lysosome Gene Database
 
 go to http://lysosome.unipg.it/index.php and http://lysosome.unipg.it/mouse.php, click query and then save html page with results as TheHumanLysosomeGene.html and TheMouseLysosomeGene.html. Alternatively (not in this project), tick download results in delimited format and then click query to get a csv file.
 
-Hela and Mouse Neuron Spatial Proteome (Itzhak 2017) 
+Hela Spatial Proteome (Itzhak 2016) http://mapofthecell.biochem.mpg.de/index.html
+
+download the Summary file: http://mapofthecell.biochem.mpg.de/HeLa_Subcell_Localization_Interactive_Database.xlsx
+
+Hela and Mouse Neuron Spatial Proteome (Itzhak 2017) https://doi.org/10.1016/j.celrep.2017.08.063
+
 download https://www.cell.com/cms/10.1016/j.celrep.2017.08.063/attachment/235fbebe-76e4-48f9-a1a0-aa8c49d68426/mmc2.xlsx
 
 and https://www.cell.com/cms/10.1016/j.celrep.2017.08.063/attachment/8fea18cb-44bf-40ee-a7ff-bb958bea8fb0/mmc3.xlsx

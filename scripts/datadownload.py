@@ -110,10 +110,16 @@ wget.download(url, 'proteinAtlasSubcellVesicles.tsv')
 url = 'http://bioinf.gen.tcd.ie/cgi-bin/casbah/casbah.pl'
 wget.download(url, 'casbah.pl')
 
-
-#Downloading Hela Spatial Proteome(data collected 2020-04-13)
+#Downloading Hela Spatial Proteome (Itzhak 2016) (data collected 2020-04-13)
 url = 'http://mapofthecell.biochem.mpg.de/HeLa_Subcell_Localization_Summary.xlsx'
-wget.download(url, 'Hela_Subcell_localization.xlsx')
+wget.download(url, 'Hela_Subcell_localization_Itzhak2016.xlsx')
+
+#Downloading Hela and Mouse Neuron Spatial Proteome (Itzhak 2016) (data collected 2020-04-13)
+url = 'https://www.cell.com/cms/10.1016/j.celrep.2017.08.063/attachment/235fbebe-76e4-48f9-a1a0-aa8c49d68426/mmc2.xlsx'
+wget.download(url, 'Hela_Subcell_localization_Itzhak2017.xlsx')
+
+url = 'https://www.cell.com/cms/10.1016/j.celrep.2017.08.063/attachment/8fea18cb-44bf-40ee-a7ff-bb958bea8fb0/mmc3.xlsx'
+wget.download(url, 'MouseNeuron_Subcell_localization_Itzhak2017.xlsx')
 
 
 #Start by downloading Amigo Autophagy GO:0006914(release 2020-04)

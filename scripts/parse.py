@@ -340,30 +340,27 @@ with open ('data_stats_TBU_compact-HSP.json', 'w') as outfile:
   json.dump(stats, outfile)
 #---------------------------------
 
-#Parsing Yeast Cell Death database (yCellDeath)
+#Parsing Yeast Cell Death database (yCellDeath) (added by Sonja)
+#extract proteins to TBU_yApoptosis.csv
 
-count =0
-alias_list = []
-with open('yApoptosis.csv', 'r', encoding = 'latin1') as csv_file, open('TBU_yApop.csv', 'w') as out:
-    first_line = csv_file.readline()
-    #list the header
-    first_line = first_line.rstrip().split(',')
-    #print specific elements
-    print(first_line[1], first_line[4], first_line[2], sep = ',', file = out)
-    with open('yApoptosis.csv', 'r', encoding = 'latin1') as csv_new, open('geneuniprot','w') as gp,open('alias', 'w') as alias:
-        csv_reader = csv.DictReader(csv_new)
-        for line in csv_reader:
-            gene_name = line['gene_name']
-            uniprot = line['uniprot']
-            print(gene_name,uniprot, sep = ',', file = gp)
-            gene_alias = line['gene_alias']
-            alias_list.append(gene_alias.replace('\xa0',''))
-            alias_list = ['nan' if x == '' else x for x in alias_list]
-        for element in alias_list:
-            print(element, file = alias)
-            
-#paste -d ',' geneuniprot alias > gp_alias.csv
-#cat TBU_yApop.csv gp_alias.csv > TBU_yApoptosis.csv
+df = pd.read_csv('yApoptosis.csv', encoding ='ANSI')
+df = df[['gene_name','uniprot','gene_alias']] #choose columns
+
+#strip whitespace
+columns = df.columns
+for column in columns:
+    df[column] = df[column].str.strip()
+
+#save data
+with open('TBU_yApoptosis.csv', 'w') as outfile:
+    df.to_csv(outfile,index=False, sep = ',',line_terminator='\n', encoding = 'utf-8')
+
+#save dataset stats
+count = len(df.index) # count proteins
+stats = {"source":"TBU_yApoptosis","count":str(count),"columns":list(columns)}
+with open ('data_stats_TBU_yApoptosis.json', 'w') as outfile:
+  json.dump(stats, outfile)
+
 #-------------------------------
 
 #Parsing Protein Atlas(all lysosome data)

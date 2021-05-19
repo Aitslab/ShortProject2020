@@ -87,12 +87,23 @@ with open('TBU_protein-basic', 'r') as TBU, open('TBU_proteinbasicHAMdb_clean', 
             print(unipID,symbol,altname,org, sep = ';', file = nan)
 #----------------------------------
 
-#Parsing Hela Spatial Proteome(HSP)
+#Parsing Spatial Proteome(HSP)
+#Parsing Spatial Proteome(SP)
+# Part 1 from Itzhak 2017
+
+# extract sheets from xlsx file
+excel_file = 'mmc2.xlsx'
+all_sheets = pd.read_excel(excel_file, sheet_name=None)
+sheets = all_sheets.keys()
+
+for sheet_name in sheets:
+    sheet = pd.read_excel(excel_file, sheet_name=sheet_name)
+    sheet.to_csv("%s.csv" % sheet_name, index=False)
 
 #LFQdeep
 gnames_list = []
 protnames_list = []
-df = pd.read_csv('LFQDeep.csv')
+df = pd.read_csv('LFQ Deep.csv')
 outfile = 'geneNames_output'
 df.to_csv(outfile,index=False, sep = '|')
 with open('geneNames_output', 'r') as gene, open('prot_Ids', 'w') as prot, open('protnames', 'w') as pnames, open('gnames', 'w') as gname:
@@ -110,13 +121,19 @@ with open('geneNames_output', 'r') as gene, open('prot_Ids', 'w') as prot, open(
         print(element, file = gname )
     for cell in protnames_list:
         print(cell, file = pnames)
-        
-paste -d '|' prot_Ids protnames gnames > TBU_LFQdeep    
+
+#concatenate columns
+df1 = pd.read_csv("prot_Ids", sep="&") #give a separator that is not included in the lines to keep lines together
+df2 = pd.read_csv("protnames", sep="&")
+df3 = pd.read_csv("gnames", sep="&")
+
+joint = pd.concat([df1, df2, df3], axis=1)
+joint.to_csv('TBU_LFQdeep', index=None, sep='|')
 
 
 #LFQFast
 count = 0
-df = pd.read_csv('LFQ_Fast.csv')
+df = pd.read_csv('LFQ Fast.csv')
 outfile = 'transitionfile.csv'
 df.to_csv(outfile,index=False, sep = '|')
 with open('transitionfile.csv', 'r') as lfq, open('TBU_LFQ_Fast', 'w') as out:
@@ -130,7 +147,7 @@ with open('transitionfile.csv', 'r') as lfq, open('TBU_LFQ_Fast', 'w') as out:
 
 #TMTDeep
 count = 0
-df = pd.read_csv('TMTDeep.csv')
+df = pd.read_csv('TMT Deep.csv')
 outfile = 'transitionfile.csv'
 df.to_csv(outfile,index=False, sep = '|')
 with open ('transitionfile.csv', 'r') as tmt, open('TBU_TMTdeep', 'w') as out:
@@ -143,7 +160,7 @@ with open ('transitionfile.csv', 'r') as tmt, open('TBU_TMTdeep', 'w') as out:
         print(prot_Ids, protnames,gname, sep='|', file=out)
         
 #TMTFast
-df = pd.read_csv('TMT_Fast.csv')
+df = pd.read_csv('TMT Fast.csv')
 outfile = 'transitionfile.csv'
 df.to_csv(outfile,index=False, sep = '|')
 with open ('transitionfile.csv', 'r') as tmt, open('TBU_TMTfast', 'w') as out:
@@ -156,7 +173,7 @@ with open ('transitionfile.csv', 'r') as tmt, open('TBU_TMTfast', 'w') as out:
 
 #DynamicSilac_deep
 count= 0
-df = pd.read_csv('DynamicSilac_deep.csv')
+df = pd.read_csv('Dynamic SILAC Deep.csv')
 outfile = 'transitionfile.csv'
 df.to_csv(outfile,index=False, sep = '|')
 with open('transitionfile.csv', 'r') as dyn , open('TBU_DYNdeep', 'w') as out:
@@ -171,7 +188,7 @@ with open('transitionfile.csv', 'r') as dyn , open('TBU_DYNdeep', 'w') as out:
  
 #Simulated_deep
 count= 0
-df = pd.read_csv('SimulatedDynamics_LFQdeep.csv')
+df = pd.read_csv('Simulated Dynamic LFQ Deep.csv')
 outfile = 'transitionfile.csv'
 df.to_csv(outfile,index=False, sep = '|')
 with open('transitionfile.csv', 'r') as sim , open('TBU_SimulatedDyn_LFQdeep', 'w') as out:
@@ -185,7 +202,7 @@ with open('transitionfile.csv', 'r') as sim , open('TBU_SimulatedDyn_LFQdeep', '
         
 
 #Simulated_fast
-df = pd.read_csv('SimulatedDynamics_LFQFast.csv')
+df = pd.read_csv('Simulated Dynamic LFQ Fast.csv')
 outfile = 'transitionfile.csv'
 df.to_csv(outfile,index=False, sep = '|')
 with open('transitionfile.csv', 'r') as sim , open('TBU_SimulatedDyn_LFQFast', 'w') as out:
@@ -195,156 +212,132 @@ with open('transitionfile.csv', 'r') as sim , open('TBU_SimulatedDyn_LFQFast', '
         protnames = line.split('|')[2]
         gname = line.split('|')[3]
         print(prot_Ids, protnames,gname, sep = '|', file = out)
-        
-        
-#Organellar markers
-# count = 0
-df = pd.read_csv('Organellar_markers.csv')
-outfile = 'transitionfile'
-df.to_csv(outfile,index=False, sep = '|')
-with open('transitionfile', 'r') as org, open('TBU_organellar_markers','w') as out:
-    #take the first line of the file. h stands for header
-    first_line = org.readline()
-    #print(first_line)
-    hgene_name= first_line.split('|')[0]
-    hprotein_name = first_line.split('|')[1]
-    hprotein_ID = first_line.split('|')[2]
-    hcompartmnet = first_line.split('|')[4]
-    print(hgene_name,hprotein_ID,hprotein_name,hcompartmnet, sep = '|', file = out)
-    for line in org:
-        #I will only print to a the output file the lines that are related to lysosomes.
-        #"lyososomes" and "Lysosomes" are not present in file
-        if 'lysosome' in line or 'Lysosome' in line: 
-            lysosome_line = line.rstrip()
-            gene_lysosome = lysosome_line.split('|')[0]
-            protname_lysosome = lysosome_line.split('|')[1]
-            protId_lysosome = lysosome_line.split('|')[2]
-            comp_lysosome = lysosome_line.split('|')[4]
-            print(gene_lysosome,protId_lysosome,protname_lysosome,comp_lysosome, sep = '|', file = out)
-            
+ 
 
-#Compact HSP with prediction confidence
-comp_list=[]
-conf_list = []
-df = pd.read_csv('Compact_Hela_proteome.csv')
-outfile = 'transitionfile'
-df.to_csv(outfile,index=False, sep = '|') 
-with open('transitionfile', 'r') as org, open('TBU_compact_HSP','w') as out, open('first_cols', 'w') as out2, open('compfile', 'w') as output, open('conffile', 'w') as output2:
-    first_line = org.readline()
-    hgene_name= first_line.split('|')[0]
-    hprotein_ID = first_line.split('|')[1]
-    hprotein_name = first_line.split('|')[2]
-    hcompartmnet = first_line.split('|')[7]
-    hconfidence = first_line.split('|')[8]
-    print(hgene_name,hprotein_ID,hprotein_name,hcompartmnet,hconfidence, sep = '|', file = out)
+#Part 2 from Itzhak 2017 Mouse neurons (added by Sonja)
 
-    for line in org:
-        if 'lysosome' in line or 'Lysosome' in line: 
-            lysosome_line = line.rstrip()
-            gene_lysosome = lysosome_line.split('|')[0]
-            protId_lysosome = lysosome_line.split('|')[1]
-            protname_lysosome = lysosome_line.split('|')[2]
-            print(gene_lysosome, protId_lysosome, protname_lysosome, sep = '|', file = out2)
-            comp_lysosome = lysosome_line.split('|')[7]
-            conf_lysosome = lysosome_line.split('|')[8]
-            comp_list.append(comp_lysosome)
-            comp_list = ["nan" if x == '' else x for x in comp_list]
-            conf_list.append(conf_lysosome)
-            conf_list = ['nan' if x == '' else x for x in conf_list]
-    for element in comp_list:
-        print(element, file = output)
-    for element in conf_list:
-        print(element, file = output2)
-            
-#paste -d '|' first_cols compfile conffile >datafile
-#cat TBU_compact_HSP datafile > TBU_compact-HSP    
+#extract proteins used as mouse neuron lysosome markers to 'TBU_mouse_organellar_markers'
+# extract sheets from xlsx file to csv files
+excel_file = 'mmc3.xlsx'
+all_sheets = pd.read_excel(excel_file, sheet_name=None)
+sheets = all_sheets.keys()
 
-#Get the genes related to lysosomes
-count=0
-#Open all files together (I am sure that all of these files have the same structure)
-for names in ('DYNdeep', 'LFQdeep','LFQ_Fast', 'SimulatedDyn_LFQFast', 'SimulatedDyn_LFQdeep', 'TMTdeep', 'TMTfast'):
-    with open('TBU_'+names, 'r') as tbu, open('Full_lyso_HSP', 'a') as out:
-        for line in tbu:
-            if 'lysosome' in line or 'lysosomes' in line or 'lysosomal' in line or 'Lysosome' in line or 'Lysosomes' in line or 'Lysosomal' in line:
-                line = line.rstrip()
-                line=line.split('|')
-                protname = line[1].replace(',', ':').replace(';', ',')
-                gname = line[2]
-                protId = line[0].replace(';', ',')
-                print(protId, protname,gname,sep =";", file = out) #146
+for sheet_name in sheets:
+    sheet = pd.read_excel(excel_file, sheet_name=sheet_name)
+    sheet.to_csv("%s.csv" % sheet_name, index=False)
+    
+df = pd.read_csv('Marker proteins with norm data.csv')
+df = df.loc[df['Marker Protein'] == 'Lysosome']
+df = df[['Lead Gene name', 'Majority protein IDs', 'Protein names', 'Marker Protein']]
+                 
+#strip whitespace
+columns = df.columns
+for column in columns:
+    df[column] = df[column].str.strip()
+    
+# save data
+with open('TBU_mouse_organellar_markers', 'w') as outfile:
+    df.to_csv(outfile,index=False, sep = '|',line_terminator='\n')
 
-#Fix to get needed fields
-count = 0
-set1 = set() # this will store 
-full_dict = {}
-set2 = set()
-with open('Full_lyso_HSP' ,'r') as full:
-    for line in full:
-        line=line.rstrip()
-        line=line.split(';')    
-        protId = line[0]
-        full_dict[protId] = {}
-        protname = line[1]
-        full_dict[protId]['protname'] = protname
-        gname = line[2]
-        full_dict[protId]['gname'] = gname
-        #split the protId and put in a set to get unique ones only
-        protsplit = protId.split(',')
-        for element in protsplit:
-            set1.add(element)
-    for key in full_dict:
-        #split the key to compare it to protId in the set and to print the rest of info of that key.
-        keysplit = key.split(',')
-        for element in set1:
-            #if the protId in set1 matches the splittedkey, print the protname and gname of that Id. This will give duplicated Ids.
-            if element in keysplit:
-                print(element,full_dict[key]['protname'], full_dict[key]['gname'], sep = ';',file = open('splittedHSP_keys', 'a'))
-        
-        
-com= open('TBU_compact-HSP', 'r') 
-out = open('TBU_compact_HSP', 'w') # this is the first 3 columns of the compact data.
-for line in com:
-    if not 'Gene name' in line:
-        line = line.rstrip()
-        line=line.split('|')
-        protID = line[1]
-        protname = line[2]
-        gname = line[0]
-        print(protID,protname,gname, sep = ';', file = out)
-        
+#save dataset stats
+count = len(df.index) # count proteins
+stats = {"source":"Spatial Proteome 2016 - Mouse Organelle Markers","count":str(count),"columns":list(columns)}
+with open ('data_stats_TBU_mouse_organellar_markers.json', 'w') as outfile:
+  json.dump(stats, outfile)
 
-with open('TBU_organellar_markers', 'r') as orgn, open('TBU_organellarmarkers', 'w') as out2:
-    for line in orgn:
-        if not 'Gene name' in line:
-            line = line.rstrip()
-            line=line.split('|')
-            protID = line[1]
-            protname = line[2]
-            gname = line[0]
-            print(protID,protname,gname, sep = ';', file = out2)
+
+#extract proteins predicted to be in mouse neuron lysosomes to 'TBU_mouse-SP'
+# extract sheets from xlsx file to csv files
+excel_file = 'mmc4.xlsx'
+all_sheets = pd.read_excel(excel_file, sheet_name=None)
+sheets = all_sheets.keys()
+
+for sheet_name in sheets:
+    sheet = pd.read_excel(excel_file, sheet_name=sheet_name)
+    sheet.to_csv("%s.csv" % sheet_name, index=False)
+    
+df = pd.read_csv('Mouse Neuron Spatial Proteome.csv')
+df = df.loc[df['Prediction'] == 'Lysosome']
+df = df[['Lead gene name','Canonical lead protein ID','Majority protein IDs', 'Protein names','Prediction', 'Prediction confidence class']]
+
+#filter out proteins with low and very low prediction score
+high = df.loc[df['Prediction confidence class'] == 'High']
+med = df.loc[df['Prediction confidence class'] == 'Medium']
+df = pd.concat([high, med], axis=0)
+               
+#strip whitespace
+columns = df.columns
+for column in columns:
+    df[column] = df[column].str.strip()
+ 
+# save data
+with open('TBU_mouse-SP', 'w') as outfile:
+    df.to_csv(outfile,index=False, sep = '|',line_terminator='\n')
+
+#save dataset stats
+count = len(df.index) # count proteins
+stats = {"source":"Spatial Proteome 2016 - Mouse Predicted Lysosomal Proteins","count":str(count),"columns":list(columns)}
+with open ('data_stats_TBU_mouse-SP.json', 'w') as outfile:
+  json.dump(stats, outfile)
+               
+               
+#Part 3 from Itzhak 2016 http://mapofthecell.biochem.mpg.de/index.html (added by Sonja)
+
+#extract sheets from xlsx file to csv files
+excel_file = 'Hela_Subcell_localization_Itzhak2016.xlsx'
+all_sheets = pd.read_excel(excel_file, sheet_name=None)
+sheets = all_sheets.keys()
+
+for sheet_name in sheets:
+    sheet = pd.read_excel(excel_file, sheet_name=sheet_name)
+    sheet.to_csv("%s.csv" % sheet_name, index=False)
         
-        
-splt = set(open(r'splittedHSP_keys'))
-new_com = set(open('TBU_compact_HSP', 'r'))
-org = set(open(r'TBU_organellarmarkers'))
-with open('TBU_ALL_HSP','w') as output:
-    print('ProteinID_HSP','ProteinName_HSP', 'GeneName_HSP', sep = ';', file = output)
-    for line in new_com:
-        line=line.rstrip()
-        if line in splt:
-            set2.add(line)
-        else:
-            set2.add(line)
-    for line in splt:
-        line=line.rstrip()
-        if not line in new_com:
-            set2.add(line)
-    for line in org:
-        line=line.rstrip()
-        if not line in new_com:
-            set2.add(line)
-    for element in set2:
-        print(element,file = output)    
+#extract proteins used as HeLa lysosome markers to 'TBU_organellar_markers'
+df = pd.read_csv('Organellar Markers HeLa.csv')
+df = df.loc[df['Compartment'] == 'Lysosome']
+df = df[['Gene name', 'Protein ID (canonical)', 'Protein name', 'Compartment']]
+
+#strip whitespace
+columns = df.columns
+for column in columns:
+    df[column] = df[column].str.strip()
+    
+#save data
+with open('TBU_organellar_markers', 'w') as outfile:
+    df.to_csv(outfile,index=False, sep = '|',line_terminator='\n')
+
+#save dataset stats
+count = len(df.index) # count proteins
+stats = {"source":"Spatial Proteome 2016 - HeLa Organelle Markers","count":str(count),"columns":list(columns)}
+with open ('data_stats_TBU_organellar_markers.json', 'w') as outfile:
+  json.dump(stats, outfile)
+
+
+#extract proteins predicted to be in HeLa lysosomes to 'TBU_compact-HSP'
+df = pd.read_csv('Compact HeLa Spatial Proteome.csv')
+df = df.loc[df['Compartment Prediction'] == 'Lysosome']
+df = df[['Lead Gene name','Lead Protein ID','Lead Protein name','Compartment Prediction', 'Prediction Confidence']]
+
+#filter out proteins with low and very low prediction score
+veryhigh = df.loc[df['Prediction Confidence'] == 'Very High']
+high = df.loc[df['Prediction Confidence'] == 'High']
+med = df.loc[df['Prediction Confidence'] == 'Medium']
+df = pd.concat([veryhigh, high, med], axis=0)
+
+#strip whitespace
+columns = df.columns
+for column in columns:
+    df[column] = df[column].str.strip()
+
+#save data
+with open('TBU_compact-HSP', 'w') as outfile:
+    df.to_csv(outfile,index=False, sep = '|',line_terminator='\n')
+
+#save dataset stats
+count = len(df.index) # count proteins
+stats = {"source":"Spatial Proteome 2016 - HeLa Predicted Lysosomal Proteins","count":str(count),"columns":list(columns)}
+with open ('data_stats_TBU_compact-HSP.json', 'w') as outfile:
+  json.dump(stats, outfile)
 #---------------------------------
 
 #Parsing Yeast Cell Death database (yCellDeath)

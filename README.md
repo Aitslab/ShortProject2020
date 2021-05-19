@@ -86,6 +86,15 @@ https://www.uniprot.org/uniprot/?query=locations:(location:%22Autophagosome%20[S
 
 go to http://bioinf.gen.tcd.ie/cgi-bin/casbah/casbah.pl, in the bottom change the table rows number to fit the number of entries (e.g. 777) BUT leave the data rows number at 50, click enter (check that only one table is shown), then save the html file as The_CASBAH.html
 
+##### Human Protein Atlas
+
+Download these files:
+
+https://www.proteinatlas.org/search/subcell_location%3ALysosomes?format=tsv save as proteinAtlasSubcellLysosomes.tsv
+
+https://www.proteinatlas.org/search/subcell_location%3AVesicles?format=tsv save asproteinAtlasSubcellVesicles.tsv
+
+
 ##### The Human Lysosome Gene Database and The Mouse Lysosome Gene Database
 
 go to http://lysosome.unipg.it/index.php and http://lysosome.unipg.it/mouse.php, click query and then save html page with results as TheHumanLysosomeGene.html and TheMouseLysosomeGene.html. Alternatively (not in this project), tick download results in delimited format and then click query to get a csv file.

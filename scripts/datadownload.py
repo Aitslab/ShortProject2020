@@ -77,35 +77,6 @@ wget.download(url, 'BCL2DBBH3only')
 url = 'https://bcl2db.lyon.inserm.fr/BCL2DB/BCL2DBOtherBH3'
 wget.download(url, 'BCL2DBOtherBH3')
 
-##THESE HPA FILES WERE ANALYSED BY MARIAM BUT THERE ARE ALSO PROTEINS AMONG THEM THAT ONLY HAVE THE SEARCH WORD IN THE DESCRIPTION, E.G. PROTEINS REGULTING LYSOSOMES
-#Download The Human Protein Atlas database (xml)/lysosome (Version: 19.3. Atlas, updated: 2020-03-06)
-url = 'https://www.proteinatlas.org/search/Lysosome?format=xml' #parsed by Mariam but not used later
-wget.download(url, 'proteinAtlasLysosome.xml')
-
-#Download The The Human Protein Atlas database (tsv)/lysosome
-url = 'https://www.proteinatlas.org/search/Lysosome?format=tsv'
-wget.download(url, 'proteinAtlasLysosome.tsv')
-
-#Download The The Human Protein Atlas database (tsv)/lysosomes
-url = 'https://www.proteinatlas.org/search/lysosomes?format=tsv'
-wget.download(url, 'proteinAtlasLysosomeS.tsv')
-
-
-#Download The The Human Protein Atlas database (tsv)/lysosomal
-url = 'https://www.proteinatlas.org/search/lysosomal?format=tsv'
-wget.download(url, 'proteinAtlasLysosomAL.tsv')
-
-#Download The The Human Protein Atlas database (tsv)/vesicle
-url = 'https://www.proteinatlas.org/search/vesicle?format=tsv'
-wget.download(url, 'proteinAtlasLysosomeVesicle.tsv')
-
-##NEW HPA FILES NOT DOWNLOADED BY MARIAM
-url = 'https://www.proteinatlas.org/search/subcell_location%3ALysosomes?format=tsv'
-wget.download(url, 'proteinAtlasSubcellLysosomes.tsv')
-
-url = 'https://www.proteinatlas.org/search/subcell_location%3AVesicles?format=tsv'
-wget.download(url, 'proteinAtlasSubcellVesicles.tsv')
-
 #Downloading casbah database(data collected 2020-04-10)
 url = 'http://bioinf.gen.tcd.ie/cgi-bin/casbah/casbah.pl'
 wget.download(url, 'casbah.pl')

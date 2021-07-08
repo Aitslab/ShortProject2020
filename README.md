@@ -18,6 +18,7 @@ Some databases were available for download(see datadownload.py), while others we
 * glob
 * openpyxl
 * json
+* tqdm (install with conda install -c conda-forge tqdm)
 
 All the scripts were run using python. 
 

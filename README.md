@@ -35,6 +35,9 @@ Data from Uniprot, The CASBAH, The Human Lysosome Gene Database and The Mouse Ly
 * webscraping.py<br>
 Runs codes written for parsing databases that were not available for download. HTML scraping was the method used in this case. Some scraping codes were followed by another code to fix the data structure in the database. Note that some steps have to be performed manually, see comments in the code
 
+* THANATOSdownload.py <br>
+Downloads the gene pages from the THANATOS database (alternative to script in notebook)
+
 * parse.py<br>
 Involves codes written for parsing the databases that were available for download in order to extract necessary fields.
 
@@ -58,6 +61,7 @@ Runs codes for the files whose entrez IDs were mapped to uniprot in order to get
 
 * MappingToLists.py <br>
 Runs codes written for for matching the screen hits with the autophagy, cell death, and lysosome lists.
+
 
 ## Usage
 All codes were written in Jupyter notebook (v6.0.1). The name or the path of the file should be supplied and the codes can be simply run with ctrl+enter OR alt+enter.
